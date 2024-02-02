@@ -100,3 +100,20 @@ a {
 }
 
 /* Header Completed */
+
+/* Footer CSS */
+
+footer{
+  background-color: var(--color-101e31);
+  color: white;
+}
+
+footer:not(:first-child){
+  border-top: 1px solid var(--color-7e9ec9);
+} 
+
+#subscribe{
+  background-color: var(--color-101e31);
+  color: white;
+  border-radius: 4px;
+}
