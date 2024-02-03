@@ -39,6 +39,7 @@ a {
   --color-7e9ec9: #7e9ec9;
   --color-febd69: #febd69;
   --color-1676f4: #1676f4;
+  --color-c9715c: #c9715c;
 }
 
 /* Header CSS */
@@ -116,4 +117,46 @@ footer:not(:first-child){
   background-color: var(--color-101e31);
   color: white;
   border-radius: 4px;
+}
+
+/* Footer CSS Completed */
+
+/* Home CSS */
+
+.main-banner-content{
+  top:20%;
+  left: 10%;
+}
+.main-banner-content > :first-child{
+  color: var(--color-c9715c);
+}
+.banner-button{
+  background-color: var(--color-101e31);
+}
+.banner-button:hover{
+  background-color: var(--color-1676f4);
+}
+
+.small-banner-content{
+  top:16%;
+  left: 10%;
+}
+
+.small-banner-content h6{
+  font-size: 12px;
+}
+
+.small-banner-content h4{
+  font-size: 20px;
+}
+
+.small-banner-content .banner-button{
+  height: 30px;
+  width: 76px;
+  font-size: 14px;
+  padding: 0;
+}
+
+.small-banner-content > :first-child{
+  color: var(--color-c9715c);
 }
