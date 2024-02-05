@@ -140,6 +140,10 @@ footer:not(:first-child){
   background-color: var(--color-1676f4);
 }
 
+.small-banner-container{
+  flex-wrap: wrap;
+}
+
 .small-banner-content{
   top:16%;
   left: 10%;
@@ -166,7 +170,7 @@ footer:not(:first-child){
 
 /* home-wrapper-2 */
 
-.home-wrapper-2{
+.home-wrapper-2, .home-wrapper-3, .home-wrapper-4, .home-wrapper-5{
   background-color: var(--color-f5f5f7);
 }
 
@@ -184,4 +188,133 @@ footer:not(:first-child){
 .service-icon{
   font-size: 46px;
 }
+
+.categories{
+  background-color: white;
+  box-shadow: 0 0 10px #edeeec;
+}
+
+.categories > div {
+  height: 90px;
+  font-size: 12px;
+}
+.categories > div:not(:last-child){
+  border-right: 2px solid var(--color-f5f5f7)
+}
+
+.product-card-container{
+  height: 400px;
+}
+
+/* Product9 Card CSS */
+.product-card{
+  width: 240px; 
+  height: 364px; 
+  box-shadow: 0 0 3px var(--color-7e9ec9);
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  transition: all .3s ease;
+  background-color: white;
+  overflow: hidden;
+}
+.product-card:hover{
+  width: 250px;
+  min-height: 375px;
+}
+
+.product-image{
+  width: 100%;
+}
+
+.product-image:last-child{
+  display: none;
+}
+.product-card:hover .product-image:last-child{
+  display: block;
+}
+.product-card:hover .product-image:nth-child(1){
+  display: none;
+}
+.product-desc > company{
+  line-height: 28px;
+  letter-spacing: 0.3;
+  color: var(--color-c9715c);
+}
+
+.product-card:not(:last-child){
+  margin-right: 24px;
+}
+
+.action-menu{
+  width: 30px;
+  height: 100px;
+  right: -30px;
+  top: 18%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.action-menu > span {
+  width: 24px;
+  height: 24px;
+  font-size: 14px;
+   border-radius: 50%;
+}
+.action-menu-icon{
+  color:black;
+}
+.action-menu > span:hover {
+  background-color: var(--color-c9715c);
+  transition: all 0.3s  ease;
+}
+
+.action-menu-icon:hover{
+  color:white;
+  transition: all 0.3s  ease;
+}
+
+.product-card:hover .action-menu{
+  right:0;
+  transition: all 0.2s ease-in-out;
+}
 /* Home CSS Completed */
+
+
+
+@media only screen and (max-width: 768px) {
+  .menu-container > div:not(:last-child){
+    display: none;
+  }
+  .menu-container > div{
+    display: flex;
+    justify-content: flex-end;
+  }
+  .large-banner-container{
+    display: none;
+  }
+  div{
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width: 1220px) {
+  .menu-text{
+    display: none;
+  } 
+  .banner-container{
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .large-banner-container{
+    width: fit-content;
+  }
+  .small-banner-container{
+    width: 60%;
+    flex-wrap: wrap;
+  }
+}

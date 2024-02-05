@@ -38,27 +38,28 @@ function Header() {
                 <span class="input-group-text p-2" id="basic-addon2"><ImSearch className='fs-5' /></span>
               </div>
             </div>
-            <div className="col-5">
-              <div className="header-upper-links d-flex align-items-center justify-space-between gap-20">
+            <div className="col-5 d-flex justify-content-end">
+              <div className="menu-container header-upper-links d-flex align-items-center justify-space-between gap-20">
                 <div><Link className='text-white d-flex align-items-center' to={'/'}>
-                  <ImLoop2 className='mb-0 fs-1 py-1' />
-                  <span className='margin-left-8 mb-0'>Compare <br />
+                  <ImLoop2 className='mb-0 fs-1 py-1 menu-icon' />
+                  <span className='margin-left-8 mb-0  menu-text'>Compare <br />
                     Products</span>
-                </Link></div>
+                </Link>
+                </div>
                 <div ><Link className='text-white d-flex align-items-center' to={'/'}>
-                  <FiHeart className='mb-0 fs-1 py-1' />
-                  <span className='margin-left-8 mb-0'>Favourite <br />
+                  <FiHeart className='mb-0 fs-1 py-1 menu-icon' />
+                  <span className='margin-left-8 mb-0 menu-text'>Favourite <br />
                     Wishlist</span>
                 </Link></div>
                 <div ><Link className='text-white d-flex align-items-center' to={'/'}>
-                  <FaRegCircleUser className='mb-0 fs-1 py-1' />
-                  <span className='margin-left-8  mb-0'>Log In <br />
+                  <FaRegCircleUser className='mb-0 fs-1 py-1 menu-icon' />
+                  <span className='margin-left-8  mb-0 menu-text'>Log In <br />
                     My Account</span>
                 </Link></div>
                 <div ><Link className='text-white d-flex align-items-center' to={'/'}>
-                  <MdOutlineShoppingCart className='mb-0 fs-1 py-1' />
-                  <div className='d-flex flex-column margin-left-8 mb-0'><span className='badge bg-white' style={{ color: "black" }}>0</span>
-                    <span>$5000</span></div>
+                  <MdOutlineShoppingCart className='mb-0 fs-1 py-1 menu-icon' />
+                  <span className='d-flex flex-column margin-left-8 mb-0 menu-text'><span className='badge bg-white' style={{ color: "black" }}>0</span>
+                    <span>$5000</span></span>
                 </Link></div>
               </div>
             </div>
@@ -69,7 +70,7 @@ function Header() {
         <div className="container-xxl">
           <div className="row">
             <div className="col-12">
-              <div className="menu-bottom d-flex align-items-center justify-content-start">
+              <div className="menu-bottom d-flex align-items-center justify-content-start flex-wrap">
                 <div class="dropdown me-4">
                   <button class="btn btn-secondary dropdown-toggle bg-transparent border-0 py-2 d-flex align-items-center gap-2 justify-content-start" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                   <CgMenuGridO className='fs-1'/>
