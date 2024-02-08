@@ -260,7 +260,7 @@ const OurStore = () => {
               </div>
             </div>
             <div className="col-9 d-flex flex-column align-items-start">
-              <div className="col-12 d-flex justify-content-between px-4 py-1 border border-gray rounded-3">
+              <div className="col-12 d-flex justify-content-between px-4 py-1 border border-gray rounded-3 bg-white">
                 <div className='d-flex d-inline align-items-center gap-10'>
                   <span className='d-inline'>Sort By:</span>
                   <span><select name="" id="" className="form-select form-control border border-#7e9ec9 fs-6">

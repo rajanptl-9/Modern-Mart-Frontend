@@ -46,7 +46,7 @@ function Header() {
                     Products</span>
                 </Link>
                 </div>
-                <div ><Link className='text-white d-flex align-items-center' to={'/'}>
+                <div ><Link className='text-white d-flex align-items-center' to={'/wishlist'}>
                   <FiHeart className='mb-0 fs-1 py-1 menu-icon' />
                   <span className='margin-left-8 mb-0 menu-text'>Favourite <br />
                     Wishlist</span>

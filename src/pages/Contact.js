@@ -21,7 +21,7 @@ const Contact = () => {
             </div>
             <div className="col-12 mt-3">
               <div className="contact-inner-wrapper d-flex justify-content-between p-3">
-                <div className='contact-form p-3 rounded-3'>
+                <div className='contact-form p-3'>
                   <h3 className="contact-title">Contact Us</h3>
                   <form action="" className='d-flex flex-column gap-20'>
                     <div><input type="text" className='form-control' placeholder='Name'/></div>
@@ -31,7 +31,7 @@ const Contact = () => {
                     <div><button className='submit-button-contact btn' type="submit">Send Mail</button></div>
                   </form>
                 </div>
-                <div className='contact-details d-flex p-3 rounded-3 flex-column gap-10'>
+                <div className='contact-details d-flex p-3 flex-column gap-10'>
                   <h3 className="contact-title">Get in Touch with Us</h3>
                   <div className='d-flex align-items-center'>
                     <FaHome/> 
