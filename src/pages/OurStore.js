@@ -260,10 +260,10 @@ const OurStore = () => {
               </div>
             </div>
             <div className="col-9 d-flex flex-column align-items-start">
-              <div className="col-12 d-flex justify-content-between px-4 py-1 border border-dark rounded-3">
+              <div className="col-12 d-flex justify-content-between px-4 py-1 border border-gray rounded-3">
                 <div className='d-flex d-inline align-items-center gap-10'>
                   <span className='d-inline'>Sort By:</span>
-                  <span><select name="" id="" className="form-select form-control fs-6">
+                  <span><select name="" id="" className="form-select form-control border border-#7e9ec9 fs-6">
                     <option value="best-selling">Best Selling</option>
                     <option value="title-ascending">Name A-Z</option>
                     <option value="title-descending">Name Z-A</option>
@@ -274,9 +274,9 @@ const OurStore = () => {
                 <div className="d-flex justify-content-between align-items-center gap-10">
                   <div>{21} Products</div>
                   <div className="alignments d-flex gap-8">
-                    <button className="alignment-icons border border-dark d-flex align-items-center justify-content-center " onClick={()=> {setGrid(4);}}><RxDragHandleVertical className='fs-3' /></button>
-                    <button className="alignment-icons border border-dark d-flex align-items-center justify-content-center" onClick={()=> setGrid(2)}><LiaGripLinesVerticalSolid className='fs-4' /></button>
-                    <button className="alignment-icons border border-dark d-flex align-items-center justify-content-center"  onClick={()=> setGrid(1)}><RxHamburgerMenu className='fs-3' /></button>
+                    <button className={`${grid===4 ? "alignment-icons  icon-selection" : "alignment-icons"}`} onClick={()=> {setGrid(4);}}><RxDragHandleVertical className='fs-3' /></button>
+                    <button className={`${grid===2 ? "alignment-icons  icon-selection" : "alignment-icons"}`} onClick={()=> setGrid(2)}><LiaGripLinesVerticalSolid className='fs-4' /></button>
+                    <button className={`${grid===1 ? "alignment-icons  icon-selection" : "alignment-icons"}`}  onClick={()=> setGrid(1)}><RxHamburgerMenu className='fs-3' /></button>
                   </div>
                 </div>
               </div>

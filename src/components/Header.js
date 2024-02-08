@@ -40,7 +40,7 @@ function Header() {
             </div>
             <div className="col-5 d-flex justify-content-end">
               <div className="menu-container header-upper-links d-flex align-items-center justify-space-between gap-20">
-                <div><Link className='text-white d-flex align-items-center' to={'/'}>
+                <div><Link className='text-white d-flex align-items-center' to={'/compare-products'}>
                   <ImLoop2 className='mb-0 fs-1 py-1 menu-icon' />
                   <span className='margin-left-8 mb-0  menu-text'>Compare <br />
                     Products</span>

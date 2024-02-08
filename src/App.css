@@ -354,16 +354,20 @@ footer:not(:first-child){
   height: 36px;
   width: 36px;
   border-radius: 10px;
+  border: 1px solid var(--color-7e9ec9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .alignment-icons:hover{
   color: white;
   background-color: var(--color-101e31);
 }
+.icon-selection{
+  color: white;
+  background-color: var(--color-101e31);
+}
 
-/* .store-wrapper .product-card{
-  width: 216px; 
-  height: 340px; 
-} */
 .store-wrapper .product-card{
   box-shadow: 0 0 3px var(--color-7e9ec9);
   border-radius: 4px;
@@ -462,6 +466,41 @@ footer:not(:first-child){
 }
 
 /* Contact CSS ends */
+
+
+/* Compare CSS */
+
+.close-icon-compare{
+  position: absolute;
+  top: 0px;
+  right: 10px;
+  font-size: 20px;
+}
+
+.compare-product-column{
+  width: 300px;
+}
+.specs-compare{
+  border-bottom: 1px solid var(--color-7e9ec9);
+}
+.compare-product-availability{
+  color:green;
+}
+
+.color-option-compare> div{
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+}
+/* Compare CSS ends */
+
+
+
+
+
+
+
+
 
 
 
