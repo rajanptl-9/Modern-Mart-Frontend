@@ -85,7 +85,7 @@ function Header() {
                 <div className="menu-links">
                   <div className="d-flex align-items-center gap-20">
                     <NavLink to="/" className='text-white'>Home</NavLink>
-                    <NavLink to="/" className='text-white'>Our Store</NavLink>
+                    <NavLink to="/our-store" className='text-white'>Our Store</NavLink>
                     <NavLink to="/contact" className='text-white'>Contact</NavLink>
                   </div>
                 </div>

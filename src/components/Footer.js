@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { BsFacebook, BsLinkedin } from "react-icons/bs";
 import { AiFillTwitterCircle } from "react-icons/ai";
 import { FaGithub, FaYoutube } from "react-icons/fa6";
-
+import cards from "../images/cards.svg"
 
 const Footer = () => {
   return (
@@ -31,11 +31,11 @@ const Footer = () => {
       </footer>
       <footer className='py-4'>
         <div className='container-xxl'>
-          <div className="row">
-            <div className="col-4">
+          <div className="link-container-footer row d-flex flex-wrap justify-content-between">
+            <div className="link-menu-footer">
               <h4>Contact Us</h4>
               <div className="footer-links d-flex flex-column">
-                <address className='mt-'>Project Store<br /> No.123, XYZ Mall, Gujarat, 987654<br />India
+                <address>Project Store<br /> No.123, XYZ Mall, Gujarat, 987654<br />India
                 </address>
                 <a href="tel:+919873214560" className='text-white mb-2 mt-2'>+91 9873214560</a>
                 <a href="mailto:modernmart.noreply@gmail.com" className='text-white mb-2 mt-2'>modernmart.noreply@gmail.com</a>
@@ -48,7 +48,7 @@ const Footer = () => {
                 </div>
               </div>
             </div>
-            <div className="col-3">
+            <div className="link-menu-footer">
               <h4>Information</h4>
               <div className="footer-links d-flex flex-column">
                 <Link className='text-white py-2 mb-1'>Privacy Policy</Link>
@@ -58,7 +58,7 @@ const Footer = () => {
                 <Link className='text-white py-2 mb-1'>Blogs</Link>
               </div>
             </div>
-            <div className="col-3">
+            <div className="link-menu-footer">
               <h4>Account</h4>
               <div className="footer-links d-flex flex-column">
                 <Link className='text-white py-2 mb-1'>Search</Link>
@@ -68,7 +68,7 @@ const Footer = () => {
                 <Link className='text-white py-2 mb-1'>Size Chart</Link>
               </div>
             </div>
-            <div className="col-2">
+            <div className="link-menu-footer">
               <h4>Quick Links</h4>
               <div className="footer-links d-flex flex-column">
                 <Link className='text-white py-2 mb-1'>Laptops</Link>
@@ -83,12 +83,14 @@ const Footer = () => {
       <footer className='py-4'>
         <div className='py-2'>
           <div className="container-xxl">
-            <div className="row d-flex justify-content-between">
-              <div className="col-3">
-                <p className='mb-0'>&copy; {new Date().getFullYear()}; Powered By Modern Mart</p>
-              </div>
-              <div className="col-4">
-
+            <div className="row">
+              <div className="site-details-footer col-12 d-flex justify-content-between">
+                <div className="d-flex d-inline">
+                  <p className='mb-0'>&copy; {new Date().getFullYear()}; Powered By Modern Mart</p>
+                </div>
+                <div className="card-images-footer d-flex d-inline">
+                  <img src={cards} alt="cards" />
+                </div>
               </div>
             </div>
           </div>

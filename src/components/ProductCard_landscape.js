@@ -27,7 +27,7 @@ const ProductCard = () => {
 
     }
     return <>
-        <div className="product-card d-flex flex-colmn p-3 position-relative">
+        <div className="product-card-landscape d-flex flex-colmn p-3 position-relative">
             <div className="favourite d-flex justify-content-end" onClick={handleLike}>
                 {liked === 0 ? <BsHeart className='fs-5' /> : liked === 1 ? <BsHeartHalf className='fs-5' /> : <BsHeartFill className='fs-5' />}
             </div>

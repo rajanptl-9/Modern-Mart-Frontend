@@ -4,6 +4,8 @@ import { BiSolidOffer } from "react-icons/bi";
 import Marquee from "react-fast-marquee";
 import CategoryCard from '../components/CategoryCard';
 import ProductCard from '../components/ProductCard';
+import MetaTags from '../components/MetaTags';
+import BreadCrums from '../components/BreadCrumbs';
 const img1 = require('../images/img1.jpg');
 const img2 = require('../images/img2.jpg');
 const img3 = require('../images/img3.jpg');
@@ -18,12 +20,13 @@ const dell = require('../images/dell.jpg');
 const hp = require('../images/hp.jpeg');
 const asus = require('../images/asus.jpg');
 const oneplus = require('../images/oneplus.jpg');
-
-
 const { Link } = require('react-router-dom');
+
 const Home = () => {
   return (
     <>
+      <MetaTags title="Home | Modern Mart"/>
+      <BreadCrums page="Home"/>
       <section className="home-wrapper-1 py-3">
         <div className="container-xxl">
           <div className="banner-container row d-flex justify-content-between p-0">
@@ -187,8 +190,7 @@ const Home = () => {
             </div>
           </div>
         </div>
-      </section>
-      
+      </section>      
     </>
   )
 }

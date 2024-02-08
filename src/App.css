@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
 
 * {
   margin: 0;
@@ -22,6 +22,9 @@ a {
 .gap-4 {
   gap: 4px;
 }
+.gap-8 {
+  gap: 8px;
+}
 .gap-10 {
   gap: 10px;
 }
@@ -41,6 +44,7 @@ a {
   --color-1676f4: #1676f4;
   --color-c9715c: #c9715c;
   --color-f5f5f7: #f5f5f7;
+  --color-a3a19c: #a3a19c;
 
 }
 
@@ -121,6 +125,9 @@ footer:not(:first-child){
   border-radius: 4px;
 }
 
+.link-menu-footer {
+  width: fit-content;
+}
 /* Footer CSS Completed */
 
 /* Home CSS */
@@ -219,7 +226,7 @@ footer:not(:first-child){
   background-color: white;
   overflow: hidden;
 }
-.product-card:hover{
+.home-wrapper-5 .product-card:hover{
   width: 250px;
   min-height: 375px;
 }
@@ -243,8 +250,19 @@ footer:not(:first-child){
   color: var(--color-c9715c);
 }
 
-.product-card:not(:last-child){
+.home-wrapper-5 > .star-rating, .home-wrapper-5 > .product-name, .home-wrapper-5 > .product-price {
+  padding: 8px;
+}
+
+.home-wrapper-5 .product-card:not(:last-child){
   margin-right: 24px;
+}
+
+.home-wrapper-5  p{
+  font-size: 16px;
+  margin-top: 12px;
+  font-weight: 600;
+  margin-bottom: 0;
 }
 
 .action-menu{
@@ -283,6 +301,132 @@ footer:not(:first-child){
 }
 /* Home CSS Completed */
 
+/* Our Store CSS */
+
+.store-wrapper{
+  background-color: var(--color-f5f5f7);
+}
+.filter-card{  
+  background-color: white;
+  border-radius: 10px;
+  padding: 10px 15px;
+  box-shadow: 0 0 1px #101e31;
+}
+.filter-card:not(:last-child){
+  margin-bottom: 16px;
+}
+
+.filter-card ul {
+  list-style-type: none;
+  color: var(--color-a3a19c);
+}
+.color-pallete{
+  gap: 8px;
+}
+
+.color-pallete div{
+  height: 24px;
+  width: 24px;
+  border-radius: 50%;
+}
+
+.product-tag-filter button{
+  font-size: 14px;
+  font-weight: 400;
+  color: black;
+  border: 0;
+  background-color: var(--color-a3a19c);
+}
+.filter-card .recent-product{
+  border: 1px solid var(--color-a3a19c);
+  border-radius: 5px;
+}
+.filter-card .product-desc .product-name{
+  font-size: 14px;
+}
+
+.sort-product-order{
+  border: 1px solid var(--color-a3a19c);
+  border-radius: 3px;
+}
+
+.alignment-icons{
+  height: 36px;
+  width: 36px;
+  border-radius: 10px;
+}
+.alignment-icons:hover{
+  color: white;
+  background-color: var(--color-101e31);
+}
+
+.store-wrapper .product-card{
+  width: 216px; 
+  height: 340px; 
+}
+
+.store-wrapper company{
+  margin: 0;
+}
+.store-wrapper > div, .store-wrapper > .star-rating, .store-wrapper > .product-name, .store-wrapper > .product-price {
+  padding: 0;
+}
+
+.store-wrapper  p{
+  font-size: 14px;
+  margin-top: 12px;
+  margin-bottom: 0;
+  font-weight: 600;
+}
+
+
+
+
+
+/* Our Store CSS Completed */
+
+
+/* Conatct CSS */
+
+.contact-inner-wrapper{
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 0 5px var(--color-101e31);
+
+}
+
+.contact-form{
+  width: 600px;
+  border: 1px solid var(--color-a3a19c);
+}
+
+.contact-details{
+  border: 1px solid var(--color-a3a19c);
+}
+
+.submit-button-contact{
+  width: 160px;
+  height: 40px;
+  background-color: var(--color-101e31);
+  color: white;
+}
+.submit-button-contact:hover{
+  color: var(--color-101e31);
+  background-color: white;
+  border: 1px solid var(--color-101e31);
+}
+
+.contact-details{
+  width: 650px;
+}
+
+/* Contact CSS ends */
+
+
+
+
+
+
 
 
 @media only screen and (max-width: 768px) {
@@ -296,8 +440,26 @@ footer:not(:first-child){
   .large-banner-container{
     display: none;
   }
-  div{
+  .card-images-footer{
+    display: none;
+  }
+  .link-menu-footer {
     width: 100%;
+  }
+  .link-menu-footer h4{
+    text-align: center;
+    margin-top: 20px;
+  }
+  .footer-links{
+    align-items: center;
+  }
+  address{
+    text-align: center;
+  }
+  .site-details-footer {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
   }
 }
 
@@ -316,5 +478,5 @@ footer:not(:first-child){
   .small-banner-container{
     width: 60%;
     flex-wrap: wrap;
-  }
+  }  
 }
