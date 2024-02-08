@@ -10,7 +10,8 @@ import { Link } from 'react-router-dom';
 import { BsHeartHalf } from "react-icons/bs";
 import { BsHeartFill } from "react-icons/bs";
 
-const ProductCard = () => {
+const ProductCard = (props) => {
+    const {grid} = props;
     const [liked, setLiked] = useState(0);
     const handleLike = () => {
         if (liked === 0) {
@@ -27,11 +28,12 @@ const ProductCard = () => {
 
     }
     return <>
-        <div className="product-card d-flex flex-colmn p-3 position-relative">
+        <div className="product-card d-flex flex-column p-3 position-relative">
             <div className="favourite d-flex justify-content-end" onClick={handleLike}>
                 {liked === 0 ? <BsHeart className='fs-5' /> : liked === 1 ? <BsHeartHalf className='fs-5' /> : <BsHeartFill className='fs-5' />}
             </div>
-            <div className="product-image-container">
+            <div className={`${grid===1 ? "d-flex justify-content-start align-items-start" : ""}`}>
+            <div className={`${grid===1 ? "product-image-container col-3" : "product-image-container"}`}>
                 <img src={ps5} alt="product" className='product-image img-fluid' />
                 <img src={ps52} alt="product" className='product-image img-fluid' />
             </div>
@@ -40,6 +42,8 @@ const ProductCard = () => {
                 <div className='product-name fw-bold text-start'>
                     <p>PlayStation 5 Console Horizon Forbidden West</p>
                 </div>
+                <description className={`${grid!==4 ? 'text-left d-block' : "d-none"}`}>
+                Voluptate anim Lorem ex fugiat reprehenderit aliquip non est pariatur laborum quis pariatur reprehenderit ut pariatur. Ipsum consectetur ea excepteur non aute deserunt. Exercitation non proident qui magna elit dolore ipsum magna.</description>
                 <div className='star-rating'>
                     <StarRatings
                         rating={4.6}
@@ -52,6 +56,7 @@ const ProductCard = () => {
                     />
                 </div>
                 <div className='product-price'><p>$ 499.99</p></div>
+            </div>
             </div>
             <div className="action-menu position-absolute">
                 <span><Link><TbArrowsShuffle2 className='action-menu-icon' /></Link></span>

@@ -214,7 +214,7 @@ footer:not(:first-child){
 }
 
 /* Product9 Card CSS */
-.product-card{
+.home-wrapper-5 .product-card{
   width: 240px; 
   height: 364px; 
   box-shadow: 0 0 3px var(--color-7e9ec9);
@@ -360,9 +360,19 @@ footer:not(:first-child){
   background-color: var(--color-101e31);
 }
 
-.store-wrapper .product-card{
+/* .store-wrapper .product-card{
   width: 216px; 
   height: 340px; 
+} */
+.store-wrapper .product-card{
+  box-shadow: 0 0 3px var(--color-7e9ec9);
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  transition: all .3s ease;
+  background-color: white;
+  overflow: hidden;
 }
 
 .store-wrapper company{
@@ -377,6 +387,37 @@ footer:not(:first-child){
   margin-top: 12px;
   margin-bottom: 0;
   font-weight: 600;
+}
+.store-wrapper  description{
+  font-size: 12px;
+  margin-top: 8px;
+  margin-bottom: 0;
+  text-align: left;
+  color: var(--color-a3a19c);
+}
+
+.button-container {
+  margin-bottom: 20px;
+}
+
+.grid-container {
+  display: grid;
+  gap: 10px;
+}
+
+/* Grid with 4 columns */
+.grid-4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+/* Grid with 2 columns */
+.grid-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+/* Grid with 1 column */
+.grid-1 {
+  grid-template-columns: repeat(1, 1fr);
 }
 
 

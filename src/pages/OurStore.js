@@ -5,12 +5,12 @@ import ps5 from '../images/ps5.jpg';
 import StarRatings from 'react-star-ratings';
 import { RxDragHandleVertical } from "react-icons/rx";
 import ProductCard from '../components/ProductCard';
-import ProductCard_landscape from '../components/ProductCard_landscape';
 import { LiaGripLinesVerticalSolid } from "react-icons/lia";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { Link } from 'react-router-dom';
 
 const OurStore = () => {
+  const [grid, setGrid] = useState(4);
   const [selectedOption, setSelectedOption] = useState("");
   const [isChecked, setIsChecked] = useState(false);
 
@@ -274,19 +274,19 @@ const OurStore = () => {
                 <div className="d-flex justify-content-between align-items-center gap-10">
                   <div>{21} Products</div>
                   <div className="alignments d-flex gap-8">
-                    <button className="alignment-icons border border-dark d-flex align-items-center justify-content-center "><RxDragHandleVertical className='fs-3' /></button>
-                    <button className="alignment-icons border border-dark d-flex align-items-center justify-content-center"><LiaGripLinesVerticalSolid className='fs-4' /></button>
-                    <button className="alignment-icons border border-dark d-flex align-items-center justify-content-center"><RxHamburgerMenu className='fs-3' /></button>
+                    <button className="alignment-icons border border-dark d-flex align-items-center justify-content-center " onClick={()=> {setGrid(4);}}><RxDragHandleVertical className='fs-3' /></button>
+                    <button className="alignment-icons border border-dark d-flex align-items-center justify-content-center" onClick={()=> setGrid(2)}><LiaGripLinesVerticalSolid className='fs-4' /></button>
+                    <button className="alignment-icons border border-dark d-flex align-items-center justify-content-center"  onClick={()=> setGrid(1)}><RxHamburgerMenu className='fs-3' /></button>
                   </div>
                 </div>
               </div>
-              <div className="col-12 d-flex justify-content-between px-0 py-3 flex-wrap gap-20 position-relative">
-                {/* <ProductCard />
-                <ProductCard />
-                <ProductCard />
-                <ProductCard /> */}
-                <ProductCard_landscape/>
-                <ProductCard_landscape/>
+              <div className={`col-12 grid-container grid-${grid} px-0 py-3 gap-20`}>
+                <ProductCard grid={grid}/>
+                <ProductCard grid={grid} />
+                <ProductCard grid={grid} />
+                <ProductCard grid={grid} />
+                {/* <ProductCard_landscape/>
+                <ProductCard_landscape/> */}
               </div>
               <div className="col-12 d-flex justify-content-center">
                 <nav aria-label="Page navigation example">
