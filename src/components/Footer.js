@@ -37,25 +37,25 @@ const Footer = () => {
               <div className="footer-links d-flex flex-column">
                 <address>Project Store<br /> No.123, XYZ Mall, Gujarat, 987654<br />India
                 </address>
-                <a href="tel:+919873214560" className='text-white mb-2 mt-2'>+91 9873214560</a>
+                <a href="tel:+919873214560" className='text-white mb-2 mt-2'>(+91) 987-321-4560</a>
                 <a href="mailto:modernmart.noreply@gmail.com" className='text-white mb-2 mt-2'>modernmart.noreply@gmail.com</a>
                 <div className="social-profiles mt-3">
-                  <a href="/" className='text-white'><BsFacebook className='fs-2 me-3' /></a>
-                  <a href="/" className='text-white'><AiFillTwitterCircle className='fs-1 me-3' /></a>
-                  <a href="" className='text-white'><BsLinkedin className='fs-2 me-3' /></a>
-                  <a href="/" className='text-white'><FaGithub className='fs-2 me-3' /></a>
-                  <a href="/" className='text-white'><FaYoutube className='fs-1 me-3' /></a>
+                  <Link to="/" className='text-white'><BsFacebook className='fs-2 me-3' /></Link>
+                  <Link to="/" className='text-white'><AiFillTwitterCircle className='fs-1 me-3' /></Link>
+                  <Link to="/" className='text-white'><BsLinkedin className='fs-2 me-3' /></Link>
+                  <Link to="/" className='text-white'><FaGithub className='fs-2 me-3' /></Link>
+                  <Link to="/" className='text-white'><FaYoutube className='fs-1 me-3' /></Link>
                 </div>
               </div>
             </div>
             <div className="link-menu-footer">
               <h4>Information</h4>
               <div className="footer-links d-flex flex-column">
-                <Link className='text-white py-2 mb-1'>Privacy Policy</Link>
-                <Link className='text-white py-2 mb-1'>Return Policy</Link>
-                <Link className='text-white py-2 mb-1'>Shopping Policy</Link>
-                <Link className='text-white py-2 mb-1'>Terms & Services</Link>
-                <Link className='text-white py-2 mb-1'>Blogs</Link>
+                <Link to={"/privacy-policy"} className='text-white py-2 mb-1'>Privacy Policy</Link>
+                <Link to={"/refund-policy"} className='text-white py-2 mb-1'>Refund Policy</Link>
+                <Link to={"/shopping-policy"} className='text-white py-2 mb-1'>Shopping Policy</Link>
+                <Link to={"/terms-and-conditions"} className='text-white py-2 mb-1'>Terms & Services</Link>
+                {/* <Link className='text-white py-2 mb-1'>Blogs</Link> */}
               </div>
             </div>
             <div className="link-menu-footer">

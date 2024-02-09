@@ -1,7 +1,7 @@
 import {React, useState} from 'react';
 import MetaTags from '../components/MetaTags';
 import BreadCrums from '../components/BreadCrumbs';
-import { PiEyeLight,PiEyeSlash } from "react-icons/pi";
+import { VscEye,VscEyeClosed } from "react-icons/vsc";
 
 const ResetPassword = () => {
     const [seePassword, setSeePassword] = useState(false);
@@ -24,9 +24,9 @@ const ResetPassword = () => {
                                 <h2 className='text-center'>Reset Password</h2>
                                 <form action="">
                                     <div className='position-relative'><input type={seePassword ? "text" : "password"} name="new-password" id="" className='w-100 mb-3 form-control' placeholder='Type new password' required />
-                                    {seePassword? <span className='password-eye-auth'><PiEyeLight onClick={handlePasswordEye}/></span> : <span className='password-eye-auth'><PiEyeSlash onClick={handlePasswordEye}/></span>}</div>
+                                    {seePassword? <span className='password-eye-auth'><VscEye onClick={handlePasswordEye}/></span> : <span className='password-eye-auth'><VscEyeClosed onClick={handlePasswordEye}/></span>}</div>
                                     <div className='position-relative'><input type={seeConfirmPassword ? "text" : "password"} name="confirm-new-password" id="" className='w-100 mb-4 form-control' placeholder='Re-type new password' required />
-                                    {seeConfirmPassword? <span className='password-eye-auth'><PiEyeLight onClick={handleConfirmPasswordEye}/></span> : <span className='password-eye-auth'><PiEyeSlash onClick={handleConfirmPasswordEye}/></span>}</div>
+                                    {seeConfirmPassword? <span className='password-eye-auth'><VscEye onClick={handleConfirmPasswordEye}/></span> : <span className='password-eye-auth'><VscEyeClosed onClick={handleConfirmPasswordEye}/></span>}</div>
                                     <div className="d-flex justify-content-center gap-20">
                                         <button type='submit' className="button">Submit</button>
                                     </div>
