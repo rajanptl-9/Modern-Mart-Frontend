@@ -45,7 +45,7 @@ const ProductCard = (props) => {
                     <div className='product-name fw-bold text-start'>
                         <p>PlayStation 5 Console Horizon Forbidden West</p>
                     </div>
-                    <description className={`${grid !== 4 ? 'text-left d-block' : "d-none"}`}>
+                    <description className={`${grid !== 4 && grid ? 'text-left d-block' : "d-none"}`}>
                         Voluptate anim Lorem ex fugiat reprehenderit aliquip non est pariatur laborum quis pariatur reprehenderit ut pariatur. Ipsum consectetur ea excepteur non aute deserunt. Exercitation non proident qui magna elit dolore ipsum magna.</description>
                     <div className='star-rating'>
                         <StarRatings

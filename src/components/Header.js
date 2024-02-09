@@ -51,12 +51,12 @@ function Header() {
                   <span className='margin-left-8 mb-0 menu-text'>Favourite <br />
                     Wishlist</span>
                 </Link></div>
-                <div ><Link className='text-white d-flex align-items-center' to={'/'}>
+                <div ><Link className='text-white d-flex align-items-center' to={'/login'}>
                   <FaRegCircleUser className='mb-0 fs-1 py-1 menu-icon' />
                   <span className='margin-left-8  mb-0 menu-text'>Log In <br />
                     My Account</span>
                 </Link></div>
-                <div ><Link className='text-white d-flex align-items-center' to={'/'}>
+                <div ><Link className='text-white d-flex align-items-center' to={'/cart'}>
                   <MdOutlineShoppingCart className='mb-0 fs-1 py-1 menu-icon' />
                   <span className='d-flex flex-column margin-left-8 mb-0 menu-text'><span className='badge bg-white' style={{ color: "black" }}>0</span>
                     <span>$5000</span></span>
