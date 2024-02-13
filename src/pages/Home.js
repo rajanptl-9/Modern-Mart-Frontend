@@ -38,8 +38,7 @@ const Home = () => {
                   <h2>lPad P53 Pro Max</h2>
                   <h5>FROM $999 to $41.63/mo</h5>
                   <h5>For 24 mon</h5>
-                  <div className="button button-primary"></div>
-                  <button type="button" className="btn btn-primary rounded-5 banner-button"><Link className='text-white'>Buy Now</Link></button>
+                  <div><Link className='button-inverse'>Buy Now</Link></div>
                 </div>
               </div>
             </div>
@@ -51,8 +50,6 @@ const Home = () => {
                   <h4>lPad P53 Pro Max</h4>
                   <h6>FROM $999 to $41.63/mo</h6>
                   <h6>For 24 mon</h6>
-                  <div className="button button-primary"></div>
-                  {/* <button type="button" className="btn btn-primary rounded-5 banner-button"><Link className='text-white'>Buy Now</Link></button> */}
                 </div>
               </div>
               <div className="small-banner position-relative">
@@ -62,8 +59,6 @@ const Home = () => {
                   <h4>lPad P53 Pro Max</h4>
                   <h6>FROM $999 to $41.63/mo</h6>
                   <h6>For 24 mon</h6>
-                  <div className="button button-primary"></div>
-                  {/* <button type="button" className="btn btn-primary rounded-5 banner-button"><Link className='text-white'>Buy Now</Link></button> */}
                 </div>
               </div>
               <div className="small-banner position-relative">
@@ -73,8 +68,6 @@ const Home = () => {
                   <h4>lPad P53 Pro Max</h4>
                   <h6>FROM $999 to $41.63/mo</h6>
                   <h6>For 24 mon</h6>
-                  <div className="button button-primary"></div>
-                  {/* <button type="button" className="btn btn-primary rounded-5 banner-button"><Link className='text-white'>Buy Now</Link></button> */}
                 </div>
               </div>
               <div className="small-banner position-relative">
@@ -84,8 +77,6 @@ const Home = () => {
                   <h4>lPad P53 Pro Max</h4>
                   <h6>FROM $999 to $41.63/mo</h6>
                   <h6>For 24 mon</h6>
-                  <div className="button button-primary"></div>
-                  {/* <button type="button" className="btn btn-primary rounded-5 banner-button"><Link className='text-white'>Buy Now</Link></button> */}
                 </div>
               </div>
             </div>

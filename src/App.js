@@ -16,6 +16,7 @@ import RefundPolicy from './pages/RefundPolicy';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsAndConditions from './pages/TermsAndConditions';
 import ShoppingPolicy from './pages/ShoppingPolicy';
+import SingleProduct from './pages/SingleProduct';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <Route index element={<Home/>}/>
           <Route path='about' element={<About/>}/>
           <Route path='our-store' element={<OurStore/>}/>
+          <Route path='our-store/:id' element={<SingleProduct/>}/>
           <Route path='wishlist' element={<Wishlist/>}/>
           <Route path='compare-products' element={<CompareProducts/>}/>
           <Route path='contact' element={<Contact/>}/>

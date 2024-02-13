@@ -33,9 +33,9 @@ function Header() {
               <h2 className='mb-0'><Link className='text-white' to={'/'}>Modern Mart</Link></h2>
             </div>
             <div className="col-5">
-              <div class="input-group">
+              <div className="input-group">
                 <input type="text" className="form-control py-1" placeholder="Search Products Here..." aria-label="Search Products Here..." aria-describedby="basic-addon2" />
-                <span class="input-group-text p-2" id="basic-addon2"><ImSearch className='fs-5' /></span>
+                <span className="input-group-text p-2" id="basic-addon2"><ImSearch className='fs-5' /></span>
               </div>
             </div>
             <div className="col-5 d-flex justify-content-end">
@@ -71,15 +71,15 @@ function Header() {
           <div className="row">
             <div className="col-12">
               <div className="menu-bottom d-flex align-items-center justify-content-start flex-wrap">
-                <div class="dropdown me-4">
-                  <button class="btn btn-secondary dropdown-toggle bg-transparent border-0 py-2 d-flex align-items-center gap-2 justify-content-start" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                <div className="dropdown me-4">
+                  <button className="btn btn-secondary dropdown-toggle bg-transparent border-0 py-2 d-flex align-items-center gap-2 justify-content-start" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                   <CgMenuGridO className='fs-1'/>
                     Shopping Categories
                   </button>
-                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                    <li><Link class="dropdown-item" to="/">Action</Link></li>
-                    <li><Link class="dropdown-item" to="/">Another action</Link></li>
-                    <li><Link class="dropdown-item" to="/">Something else here</Link></li>
+                  <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    <li><Link className="dropdown-item" to="/">Action</Link></li>
+                    <li><Link className="dropdown-item" to="/">Another action</Link></li>
+                    <li><Link className="dropdown-item" to="/">Something else here</Link></li>
                   </ul>
                 </div>
                 <div className="menu-links">

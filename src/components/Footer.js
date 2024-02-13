@@ -12,17 +12,15 @@ const Footer = () => {
       <footer className='py-4'>
         <div className='py-2'>
           <div className="container-xxl">
-            <div className="row d-flex justify-content-start align-items-center">
-              <div className="col-5">
-                <div className="footer-upper d-flex gap-30 align-items-center">
+            <div className="row">
+              <div className='news-letter-footer d-flex'>
+                <div className="footer-upper d-flex">
                   <div><GrSend className='fs-3 me-2' /></div>
-                  <div className='mb-0'> Sign Up for Newsletter</div>
+                  <div className=''> Sign Up for Newsletter</div>
                 </div>
-              </div>
-              <div className="col-6">
-                <div class="input-group">
+                <div className="input-group news-signup-footer">
                   <input type="text" className="form-control py-1 bg-white" placeholder="Your E-mail address..." aria-label="Your E-mail address..." aria-describedby="basic-addon2" />
-                  <span class="input-group-text p-2" id="subscribe">Subscribe</span>
+                  <span className="input-group-text p-2" id="subscribe">Subscribe</span>
                 </div>
               </div>
             </div>
