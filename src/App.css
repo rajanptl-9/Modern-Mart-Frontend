@@ -640,6 +640,8 @@ footer:not(:first-child){
 
 /* Log In CSS ends */
 
+
+
 /* Single Product CSS */
 
 .product-details-product{
@@ -724,7 +726,6 @@ footer:not(:first-child){
   background: #555;
 }
 
-
 .description-product{
   width: 45%;
 }
@@ -750,8 +751,6 @@ footer:not(:first-child){
 .other-details-product p{
   font-size: 14px;
 }
-
-
 
 .reviews{
   box-shadow: 0 0 1px var(--color-101e31);
@@ -807,8 +806,70 @@ footer:not(:first-child){
 
 
 
+/* Cart CSS */
+
+.cart-container{
+  width: 100%;
+}
+
+.all-products-cart{
+  width: 75%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.product-card-cart,.product-card-cart{
+  width: 100%;
+}
+.product-card-cart img{
+  width: 240px;
+  height: 240px;
+}
+.control-button-cart> div{
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-right: 20px;
+}
+.control-button-cart> div:not(:first-child){
+  padding-left: 20px;
+}
+.control-button-cart> div:not(:last-child){
+    border-right: solid 1px #000;
+}
+.price-total-cart{
+  width: 25%;
+  height: fit-content;
+  border: 1px solid var(--color-7e9ec9);
+  border-radius: 10px;
+}
+.subtotal-card-cart{
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+.control-card-cart{
+  display: flex;
+}
+.control-outside-card-cart{
+  display: none;
+  justify-content: center;
+}
+
+/* Cart CSS ends */
 
 
+
+
+
+
+
+@media only screen and (max-width: 900px) {
+ .cart-container{
+  flex-direction: column;
+ } 
+ .all-products-cart, .price-total-cart{
+  width: 100%;
+ }
+}
 
 @media only screen and (max-width: 768px) {
   .menu-container > div:not(:last-child){
@@ -857,6 +918,16 @@ footer:not(:first-child){
   .show-overall-review{
     gap: 20px;
     flex-direction: column;
+  }
+  .product-card-cart img{
+    width: 120px;
+    height: 120px;
+  }
+  .control-card-cart{
+    display: none;
+  }
+  .control-outside-card-cart{
+    display: flex;
   }
 }
 
