@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FaTruckFast, FaGift, FaHeadphonesSimple, FaCreditCard } from "react-icons/fa6";
 import { BiSolidOffer } from "react-icons/bi";
 import Marquee from "react-fast-marquee";
@@ -6,6 +6,10 @@ import CategoryCard from '../components/CategoryCard';
 import ProductCard from '../components/ProductCard';
 import MetaTags from '../components/MetaTags';
 import BreadCrums from '../components/BreadCrumbs';
+import FeatureProduct from '../components/FeatureProduct';
+import { useDispatch, useSelector } from 'react-redux';
+import { getProducts } from '../features/product/productSlice';
+import SpecialProducts from '../components/SpecialProducts';
 const img1 = require('../images/img1.jpg');
 const img2 = require('../images/img2.jpg');
 const img3 = require('../images/img3.jpg');
@@ -23,10 +27,32 @@ const oneplus = require('../images/oneplus.jpg');
 const { Link } = require('react-router-dom');
 
 const Home = () => {
+  const dispatch = useDispatch();
+  const productState = useSelector(state => state.product.products);
+  const featuredProduct = [];
+  if (productState) {
+    for (let i = 0; i < productState.length && featuredProduct.length < 4; i++) {
+      if (productState[i].tags && productState[i].tags.includes('featured')){        
+        featuredProduct.push(productState[i]);
+      }
+    }
+  }
+  const specialProduct = [];
+  if (productState) {
+    for (let i = 0; i < productState.length && specialProduct.length < 2; i++) {
+      if (productState[i].tags && productState[i].tags.includes('special')){       
+        specialProduct.push(productState[i]);
+      }
+    }
+  }
+
+  useEffect(() => {
+    dispatch(getProducts());
+  }, [dispatch]);
   return (
     <>
-      <MetaTags title="Home | Modern Mart"/>
-      <BreadCrums page="Home"/>
+      <MetaTags title="Home | Modern Mart" />
+      <BreadCrums page="Home" />
       <section className="home-wrapper-1 py-3">
         <div className="container-xxl">
           <div className="banner-container row d-flex justify-content-between p-0">
@@ -36,7 +62,7 @@ const Home = () => {
                 <div className="main-banner-content position-absolute">
                   <h5>SUPERCHARGED BY PROS.</h5>
                   <h2>lPad P53 Pro Max</h2>
-                  <h5>FROM $999 to $41.63/mo</h5>
+                  <h5>FROM ₹999 to ₹41.63/mo</h5>
                   <h5>For 24 mon</h5>
                   <div><Link className='button-inverse'>Buy Now</Link></div>
                 </div>
@@ -48,7 +74,7 @@ const Home = () => {
                 <div className="small-banner-content position-absolute">
                   <h6>BEST SALE</h6>
                   <h4>lPad P53 Pro Max</h4>
-                  <h6>FROM $999 to $41.63/mo</h6>
+                  <h6>FROM ₹999 to ₹41.63/mo</h6>
                   <h6>For 24 mon</h6>
                 </div>
               </div>
@@ -57,7 +83,7 @@ const Home = () => {
                 <div className="small-banner-content position-absolute">
                   <h6>NEW ARRIVAL</h6>
                   <h4>lPad P53 Pro Max</h4>
-                  <h6>FROM $999 to $41.63/mo</h6>
+                  <h6>FROM ₹999 to ₹41.63/mo</h6>
                   <h6>For 24 mon</h6>
                 </div>
               </div>
@@ -66,7 +92,7 @@ const Home = () => {
                 <div className="small-banner-content position-absolute">
                   <h6>15% OFF</h6>
                   <h4>lPad P53 Pro Max</h4>
-                  <h6>FROM $999 to $41.63/mo</h6>
+                  <h6>FROM ₹999 to ₹41.63/mo</h6>
                   <h6>For 24 mon</h6>
                 </div>
               </div>
@@ -75,7 +101,7 @@ const Home = () => {
                 <div className="small-banner-content position-absolute">
                   <h6>FREE ENGRAVING</h6>
                   <h4>lPad P53 Pro Max</h4>
-                  <h6>FROM $999 to $41.63/mo</h6>
+                  <h6>FROM ₹999 to ₹41.63/mo</h6>
                   <h6>For 24 mon</h6>
                 </div>
               </div>
@@ -91,7 +117,7 @@ const Home = () => {
                 <div className="service d-flex">
                   <div className='d-flex justify-content-center align-items-center me-3'><FaTruckFast className='service-icon' /></div>
                   <div className="service-content d-flex flex-column justify-content-center"><b>Free Shipping</b>
-                    <p className='mb-0'>From all order over $100</p>
+                    <p className='mb-0'>From all order over ₹100</p>
                   </div>
                 </div>
                 <div className="service d-flex">
@@ -138,24 +164,31 @@ const Home = () => {
           </div>
         </div>
       </section>
-      <section className="home-wrapper-5 py-3">
+      {featuredProduct && <section className="home-wrapper-5 py-3">
         <div className="container-xxl">
-          <div className="row"><h4>Featured Collection</h4></div>
+          <div className="row"><h4 className='fw-bold'>Featured Collection</h4></div>
           <div className="row">
-            <div className="product-card-container col-12 d-flex align-items-center overflow-x-scroll">
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
+            <div className="feature-card-container pb-3 col-12 d-flex align-items-center overflow-x-scroll">
+              {featuredProduct.map((product, index) => <FeatureProduct key={product.slug + index} data={product} />)}
             </div>
           </div>
         </div>
-      </section>
+      </section>}
+      {specialProduct && <section className="home-wrapper-5 py-3">
+        <div className="container-xxl">
+          <div className="row"><h4 className='fw-bold'>Special Products</h4></div>
+          <div className="row">
+            <div className="special-card-container pb-3 col-12 d-flex align-items-center overflow-x-scroll">
+              {specialProduct.map((product, index) => <SpecialProducts key={product.slug + index} data={product} />)}
+            </div>
+          </div>
+        </div>
+      </section>}
       <section className="home-wrapper-4 py-3">
         <div className="container-xxl">
           <div className="row">
             <div className="col-12">
+              <h4 className='fw-bold'>Brands Available On Our Shop</h4>
               <div className="marque-inner-wrapper card-wrapper p-3 bg-white">
                 <Marquee className="d-flex align-items-center">
                   <div>
@@ -181,7 +214,7 @@ const Home = () => {
             </div>
           </div>
         </div>
-      </section>      
+      </section>
     </>
   )
 }

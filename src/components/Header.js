@@ -1,21 +1,77 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, NavLink } from 'react-router-dom';
 import { ImSearch, ImLoop2 } from "react-icons/im";
 import { FiHeart } from "react-icons/fi";
 import { FaRegCircleUser } from "react-icons/fa6";
 import { MdOutlineShoppingCart } from "react-icons/md";
 import { CgMenuGridO } from "react-icons/cg";
+import { useDispatch, useSelector } from 'react-redux';
+import { getCart } from '../features/cart/cartSlice';
+import { Bounce, ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 function Header() {
+  const dispatch = useDispatch();
+  const cartState = useSelector(state => state.cart.cartlist);
+  const [citems, setcitems] = useState(0);
+  const [ctotal, setctotal] = useState(0);
+
+  const [userName, setUserName] = useState(null);
+  const user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null;
+
+  const handleLogout = () => {
+    localStorage.clear();
+    toast('Logged Out Successfully!', {
+      position: "top-center",
+      autoClose: 1000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+      transition: Bounce,
+    })
+    setTimeout(() => {
+      window.location.reload();
+    }, 1500);
+  };
+
+  useEffect(() => {
+    if (user) {
+      setUserName(`${user.firstname} ${user.lastname}`);
+    } else {
+      setUserName(null);
+    }
+    // eslint-disable-next-line
+  }, []);
+
+  useEffect(() => {
+    if (user) dispatch(getCart());
+    // eslint-disable-next-line
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (cartState) {
+      setcitems(cartState.length);
+      let total = 0;
+      for (let i = 0; i < cartState.length; i++) {
+        total += cartState[i].quantity * cartState[i].price * 0.72;
+      }
+      setctotal(parseInt(total));
+    }
+  }, [cartState]);
+
   return (
     <>
-      <header className="header-top-stripe py-2">
+      <ToastContainer />
+      <header className="header-top-stripe">
         <div className="container-xxl">
           <div className="row">
             <div className="col-6">
               <p className="text-white mb-0">
-                Free Shipping over $100 and Free Returns
+                Free Shipping over ₹100 and Free Returns
               </p>
             </div>
             <div className="col-6">
@@ -26,7 +82,7 @@ function Header() {
           </div>
         </div>
       </header>
-      <header className="header-upper py-2">
+      <header className="header-upper py-1">
         <div className="container-xxl">
           <div className="row align-items-center">
             <div className="col-2">
@@ -53,13 +109,13 @@ function Header() {
                 </Link></div>
                 <div ><Link className='text-white d-flex align-items-center' to={'/login'}>
                   <FaRegCircleUser className='mb-0 fs-1 py-1 menu-icon' />
-                  <span className='margin-left-8  mb-0 menu-text'>Log In <br />
+                  <span className='margin-left-8  mb-0 menu-text'>{userName ? userName : "Log In"} <br />
                     My Account</span>
                 </Link></div>
                 <div ><Link className='text-white d-flex align-items-center' to={'/cart'}>
                   <MdOutlineShoppingCart className='mb-0 fs-1 py-1 menu-icon' />
-                  <span className='d-flex flex-column margin-left-8 mb-0 menu-text'><span className='badge bg-white' style={{ color: "black" }}>0</span>
-                    <span>$5000</span></span>
+                  <span className='d-flex flex-column margin-left-8 mb-0 menu-text'><span className='badge bg-white' style={{ color: "black" }}>{citems}</span>
+                    <span>₹{ctotal}</span></span>
                 </Link></div>
               </div>
             </div>
@@ -72,8 +128,8 @@ function Header() {
             <div className="col-12">
               <div className="menu-bottom d-flex align-items-center justify-content-start flex-wrap">
                 <div className="dropdown me-4">
-                  <button className="btn btn-secondary dropdown-toggle bg-transparent border-0 py-2 d-flex align-items-center gap-2 justify-content-start" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                  <CgMenuGridO className='fs-1'/>
+                  <button className="btn btn-secondary dropdown-toggle bg-transparent border-0 py-1 d-flex align-items-center gap-2 justify-content-start" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                    <CgMenuGridO className='fs-1' />
                     Shopping Categories
                   </button>
                   <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
@@ -86,7 +142,9 @@ function Header() {
                   <div className="d-flex align-items-center gap-20">
                     <NavLink to="/" className='text-white'>Home</NavLink>
                     <NavLink to="/our-store" className='text-white'>Our Store</NavLink>
+                    <NavLink to="/my-orders" className='text-white'>My Orders</NavLink>
                     <NavLink to="/contact" className='text-white'>Contact</NavLink>
+                    <button className='text-white bg-transperent border-0 transparent-background' onClick={() => handleLogout()}>LOG-OUT </button>
                   </div>
                 </div>
               </div>

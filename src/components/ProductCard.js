@@ -1,7 +1,5 @@
-import { React, useState } from 'react';
+import { React, useEffect, useState } from 'react';
 import { BsHeart } from "react-icons/bs";
-import ps5 from "../images/ps5.jpg"
-import ps52 from "../images/ps52.jpg"
 import StarRatings from 'react-star-ratings';
 import { IoEyeOutline } from "react-icons/io5";
 import { GiShoppingBag } from "react-icons/gi";
@@ -9,48 +7,60 @@ import { TbArrowsShuffle2 } from "react-icons/tb";
 import { Link } from 'react-router-dom';
 import { BsHeartHalf } from "react-icons/bs";
 import { BsHeartFill } from "react-icons/bs";
+import default_image from '../images/default_prodcut.jpeg'
+import { useDispatch } from 'react-redux';
+import { addToWishlist } from '../features/wishlist/wishlistSlice';
 
 const ProductCard = (props) => {
-    const { grid } = props;
-    const [liked, setLiked] = useState(0);
-    const handleLike = () => {
-        if (liked === 0) {
-            setLiked(1);
-            setTimeout(() => {
-                setLiked(2);
-            }, 200);
-        } else {
-            setLiked(1);
-            setTimeout(() => {
-                setLiked(0);
-            }, 200);
-        }
-    }
-    return <>
+    const { grid, data } = props;
+    const dispatch = useDispatch();
+    //eslint-disable-next-line
+    const [liked, setLiked] = useState(data.like);
+    const wishlist = localStorage.getItem("wishlist") ? JSON.parse(localStorage.getItem("wishlist")) : [];
 
-        <div className="product-card d-flex flex-column p-3 position-relative">
+    const handleLike = () => {
+        const body = { prodId: data._id };
+        dispatch(addToWishlist(body));
+    }
+
+    const isInWishlist = (productId) => {
+        for (let i = 0; i < wishlist.length; i++) {
+            if (wishlist[i]._id === productId) {
+                return true;
+            }
+        }
+        return false;
+    };    
+
+    useEffect(() => {
+        isInWishlist(data._id) ? setLiked(2) : setLiked(0);
+        //eslint-disable-next-line
+    }, [wishlist]);
+
+    return <>
+        <div className="product-card d-flex flex-column p-3 position-relative" >
             <div className="favourite d-flex justify-content-end" onClick={handleLike}>
-                {liked === 0 ? <BsHeart className='fs-5' /> : liked === 1 ? <BsHeartHalf className='fs-5' /> : <BsHeartFill className='fs-5' />}
+                {liked === 0 ? <BsHeart className='fs-5' /> : liked === 1 ? <BsHeartHalf className='fs-5' /> : <BsHeartFill className='fs-5 text-danger' />}
             </div>
-            <Link to={"/our-store/:id"} className='text-dark'>
+            <a href={"/our-store/"+data._id} className='text-dark'>
                 <div className={`${grid === 1 ? "d-flex justify-content-start align-items-start" : ""}`}>
                     <div className={`${grid === 1 ? "product-image-container col-3" : "product-image-container"}`}>
-                        <img src={ps5} alt="product" className='product-image img-fluid' />
-                        <img src={ps52} alt="product" className='product-image img-fluid' />
+                        {data.images.length > 0 ? (data.images.map((image, index) => <img src={`${image.url}`} key={image + index} alt="product" className='product-image img-fluid' />)) : <img src={default_image} alt="product" className='img-fluid' />}
                     </div>
                     <div className='product-desc d-flex flex-column justify-content-center align-items-start p-1'>
-                        {/* <div className={`${grid === 1 ? "favourite col-12 d-flex justify-content-end" : "d-none"}`} onClick={handleLike}>
-                            {liked === 0 ? <BsHeart className='fs-5' /> : liked === 1 ? <BsHeartHalf className='fs-5' /> : <BsHeartFill className='fs-5' />}
-                        </div> */}
-                        <div className="company-name mt-1 fw-bold">Sony</div>
-                        <div className='product-name fw-bold text-start'>
-                            <p>PlayStation 5 Console Horizon Forbidden West</p>
+                        <div className="company-name mt-1 fw-bold">{data.brand.title}</div>
+                        <div className='product-name fw-bold text-start mb-0'>
+                            <p className='mb-0'>{data.title}</p>
+                        </div>
+                        <div className='product-name fw-bold text-start text-secondary'>
+                            <p className='mb-2'>{data.brand.title}</p>
                         </div>
                         <div className={`${grid !== 4 && grid ? 'text-left d-block description' : "d-none"}`}>
-                            Voluptate anim Lorem ex fugiat reprehenderit aliquip non est pariatur laborum quis pariatur reprehenderit ut pariatur. Ipsum consectetur ea excepteur non aute deserunt. Exercitation non proident qui magna elit dolore ipsum magna.</div>
+                            {data.description}
+                        </div>
                         <div className='star-rating'>
                             <StarRatings
-                                rating={4.6}
+                                rating={parseInt(data.totalRating)}
                                 starRatedColor="orange"
                                 // changeRating={}
                                 numberOfStars={5}
@@ -59,17 +69,17 @@ const ProductCard = (props) => {
                                 starSpacing="-5px"
                             />
                         </div>
-                        <div className='product-price'><p>$ 499.99</p></div>
+                        <div className='product-price'><p>₹ {data.price}</p></div>
                     </div>
                 </div>
-            </Link>
+            </a>
             <div className="action-menu position-absolute">
                 <span><Link><TbArrowsShuffle2 className='action-menu-icon' /></Link></span>
-                <span><Link><IoEyeOutline className='action-menu-icon' /></Link></span>
+                <span><a href={"/our-store/"+data._id}><IoEyeOutline className='action-menu-icon' /></a></span>
                 <span><Link><GiShoppingBag className='action-menu-icon' /></Link></span>
             </div>
         </div>
     </>
 };
 
-export default ProductCard
+export default ProductCard;

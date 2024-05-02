@@ -18,28 +18,35 @@ import TermsAndConditions from './pages/TermsAndConditions';
 import ShoppingPolicy from './pages/ShoppingPolicy';
 import SingleProduct from './pages/SingleProduct';
 import Cart from './pages/Cart';
+import CheckoutInformation from './pages/CheckoutInformation';
+import CheckoutLayout from './components/CheckoutLayout';
+import Orders from './pages/Orders';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<Layout />}>
-          <Route index element={<Home/>}/>
-          <Route path='about' element={<About/>}/>
-          <Route path='our-store' element={<OurStore/>}/>
-          <Route path='our-store/:id' element={<SingleProduct/>}/>
-          <Route path='wishlist' element={<Wishlist/>}/>
-          <Route path='cart' element={<Cart/>}/>
-          <Route path='compare-products' element={<CompareProducts/>}/>
-          <Route path='contact' element={<Contact/>}/>
-          <Route path='login' element={<Login/>}/>
-          <Route path='signup' element={<Signup/>}/>
-          <Route path='forgot-password' element={<ForgotPassword/>}/>
-          <Route path='reset-password' element={<ResetPassword/>}/>
-          <Route path='shopping-policy' element={<ShoppingPolicy/>}/>
-          <Route path='refund-policy' element={<RefundPolicy/>}/>
-          <Route path='privacy-policy' element={<PrivacyPolicy/>}/>
-          <Route path='terms-and-conditions' element={<TermsAndConditions/>}/>
+          <Route index element={<Home />} />
+          <Route path='about' element={<About />} />
+          <Route path='our-store' element={<OurStore />} />
+          <Route path='our-store/:id' element={<SingleProduct />} />
+          <Route path='wishlist' element={<Wishlist />} />
+          <Route path='cart' element={<Cart />} />
+          <Route path="my-orders" element={<Orders/>} />
+          <Route path='checkout' element={<CheckoutLayout />}>
+            <Route index element={<CheckoutInformation/>}/>
+          </Route>
+          <Route path='compare-products' element={<CompareProducts />} />
+          <Route path='contact' element={<Contact />} />
+          <Route path='login' element={<Login />} />
+          <Route path='signup' element={<Signup />} />
+          <Route path='forgot-password' element={<ForgotPassword />} />
+          <Route path='reset-password/:token' element={<ResetPassword />} />
+          <Route path='shopping-policy' element={<ShoppingPolicy />} />
+          <Route path='refund-policy' element={<RefundPolicy />} />
+          <Route path='privacy-policy' element={<PrivacyPolicy />} />
+          <Route path='terms-and-conditions' element={<TermsAndConditions />} />
         </Route>
       </Routes>
     </BrowserRouter>

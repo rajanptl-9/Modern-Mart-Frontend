@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 const BreadCrumbs = (props) => {
     return (
-        <div className='breadcrumb-container py-1 bg-warning'>
+        <div className='breadcrumb-container bg-warning'>
             <div className="container-xxl">
                 <div className="row">
                     <div aria-label="breadcrumb d-flex justify-content-center align-items-center">

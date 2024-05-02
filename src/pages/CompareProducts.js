@@ -5,6 +5,7 @@ import laptop from '../images/laptop.jpg'
 import { IoClose } from "react-icons/io5";
 
 const CompareProducts = () => {
+    
     return (
         <>
             <MetaTags title="Comapre | Modern Mart" />
@@ -14,7 +15,7 @@ const CompareProducts = () => {
                     <div className="col-12 d-flex gap-20">
                         <div className="compare-product-column d-flex flex-column position-relative border">
                             <span className='close-icon-compare'><IoClose /></span>
-                            <img src={laptop} alt="image" />
+                            <img src={laptop} alt="close" />
                             <h6 className='px-3 py-2'>Apple MacBook Air 2020 (M1, 13.3 Inch, 8GB, 256GB, macOS Big Sur, Space Grey)</h6>
                             <h6 className='px-3 py-2'>$999.99</h6>
                             <div className="d-flex flex-column p-3 gap-20">
@@ -46,7 +47,7 @@ const CompareProducts = () => {
                         </div>
                         <div className="compare-product-column d-flex flex-column position-relative border">
                             <span className='close-icon-compare'><IoClose /></span>
-                            <img src={laptop} alt="image" />
+                            <img src={laptop} alt="product" />
                             <h6 className='px-3 py-2'>Apple MacBook Air 2020 (M1, 13.3 Inch, 8GB, 256GB, macOS Big Sur, Space Grey)</h6>
                             <h6 className='px-3 py-2'>$999.99</h6>
                             <div className="d-flex flex-column p-3 gap-20">
@@ -78,7 +79,7 @@ const CompareProducts = () => {
                         </div>
                         <div className="compare-product-column d-flex flex-column position-relative border">
                             <span className='close-icon-compare'><IoClose /></span>
-                            <img src={laptop} alt="image" />
+                            <img src={laptop} alt="product" />
                             <h6 className='px-3 py-2'>Apple MacBook Air 2020 (M1, 13.3 Inch, 8GB, 256GB, macOS Big Sur, Space Grey)</h6>
                             <h6 className='px-3 py-2'>$999.99</h6>
                             <div className="d-flex flex-column p-3 gap-20">
@@ -110,7 +111,7 @@ const CompareProducts = () => {
                         </div>
                         <div className="compare-product-column d-flex flex-column position-relative border">
                             <span className='close-icon-compare'><IoClose /></span>
-                            <img src={laptop} alt="image" />
+                            <img src={laptop} alt="product" />
                             <h6 className='px-3 py-2'>Apple MacBook Air 2020 (M1, 13.3 Inch, 8GB, 256GB, macOS Big Sur, Space Grey)</h6>
                             <h6 className='px-3 py-2'>$999.99</h6>
                             <div className="d-flex flex-column p-3 gap-20">
