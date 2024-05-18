@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
+var options = { year: 'numeric', month: 'long', day: 'numeric' };
 const OrderProduct = (props) => {
     const { order, index } = props;
     const [subTotal, setSubTotal] = useState(0);
@@ -23,7 +24,8 @@ const OrderProduct = (props) => {
                     <div className="order-description">
                         <div className="order-details">
                             <div className='order-id'><span>Order ID:</span><br /> #{order._id}</div>
-                            <div className='order-status'><span>Status:</span><br /> {order.orderStatus}</div>
+                            <div className='order-status text-center'><span>Status:</span><br /> {order.orderStatus}</div>
+                            <div className='order-id  text-right'><span>Order Date:</span><br /> {new Date(order?.createdAt).toLocaleDateString("en-US", options)}</div>
                         </div>
                         <div className="shipping-details">
                             <div className='shipping-name'><b>Name:</b> {order.shippingInfo?.firstname} {order.shippingInfo?.lastname}</div>

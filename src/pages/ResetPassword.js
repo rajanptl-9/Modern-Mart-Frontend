@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
 import { Bounce, ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ResetPassword = () => {
     const dispatch = useDispatch();

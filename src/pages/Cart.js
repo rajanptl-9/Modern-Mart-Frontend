@@ -4,10 +4,9 @@ import BreadCrums from '../components/BreadCrumbs';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCart } from '../features/cart/cartSlice';
-import { ToastContainer, toast, Bounce } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import CartItems from '../components/CartItems';
-import RM_LS_User from '../utils/RM_LS_User';
 
 const Cart = () => {
     const dispatch = useDispatch();
@@ -15,7 +14,7 @@ const Cart = () => {
     const [subTotal, setSubTotal] = useState(0);
     const [finalTotal, setFinalTotal] = useState(0);
     const [totalDiscount, setTotalDiscount] = useState(0);
-    const {updatedProduct, message, isError, isSuccess} = useSelector(state => state.cart);
+    const {updatedProduct,deleteProduct, message, isError, isSuccess} = useSelector(state => state.cart);
 
     useEffect(() => {
         dispatch(getCart());
@@ -34,68 +33,15 @@ const Cart = () => {
         }
     }, [cartState]);
 
-    useEffect(() => {
-        if (message === 'Product removed successfully!' && isSuccess && !isError) {
-            toast.success('✓ Product removed successfully!', {
-                position: "top-center",
-                autoClose: 1000,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "colored",
-                transition: Bounce,
-            });
-            dispatch(getCart());
-        } else if (isError && !isSuccess) {
-            toast.error('✗ Product remove Failed!', {
-                position: "top-center",
-                autoClose: 1000,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "colored",
-                transition: Bounce,
-            });
-        }
-        //eslint-disable-next-line
-    }, [isError, message]);
-
     useEffect(() => {        
-        RM_LS_User(message);
-        if (updatedProduct) { 
-            if (message === 'Quantity updated successfully!' && isSuccess && !isError) {
-                toast.success('✓ Quantity updated successfully!', {
-                    position: "top-center",
-                    autoClose: 1000,
-                    hideProgressBar: true,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "colored",
-                    transition: Bounce,
-                });
+        if (updatedProduct || deleteProduct) { 
+            if (isSuccess && !isError) {
+                
                 dispatch(getCart());
-            } else if (message !== "Authorized token expired! Please log in again." && message !== "Cannot read properties of undefined (reading 'rejectWithValue')"  && isError && !isSuccess) {
-                toast.error('✗ Quantity update Failed!', {
-                    position: "top-center",
-                    autoClose: 1000,
-                    hideProgressBar: true,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "colored",
-                    transition: Bounce,
-                });
             }
         }
     //eslint-disable-next-line
-    }, [updatedProduct, isSuccess, isError, message])
+    }, [updatedProduct,deleteProduct, isSuccess, isError, message])
 
     return (
         <>
@@ -122,7 +68,7 @@ const Cart = () => {
                                 </div>
                                 <div className='price-total-cart px-3'>
                                     <div className='d-flex flex-column justify-content-center  border-bottom py-3'>
-                                        <Link to={"/checkout"} className='button-inverse text-center'> Check Out</Link>
+                                        <Link to={cartState?.length  === 0 ? "": "/checkout"} className='button-inverse text-center' > {cartState?.length  === 0 ? "Add Products to Cart" :  'Check Out'}</Link>
                                     </div>
                                     <div className='d-flex flex-column justify-content-center  border-bottom'>
                                         <div className="py-2 d-flex justify-content-between">
@@ -135,10 +81,10 @@ const Cart = () => {
                                         </div>
                                         <div className="py-2 d-flex justify-content-between">
                                             <div>Delivery Charges</div>
-                                            <div>{subTotal > 100 ? <span className='text-success'>Free</span> : "₹20.00"}</div>
+                                            {cartState?.length  === 0 ? <div>0.00</div> : <div>{subTotal > 100 ? <span className='text-success'>Free</span> : "₹20.00"}</div>}
                                         </div>
                                     </div>
-                                    <div className="subtotal-card-cart d-flex justify-content-between align-items-center border-bottom py-2"><span>{`Subtotal (${cartState.length} item/s)`}</span> <span>₹&nbsp;{finalTotal}</span></div>
+                                    <div className="subtotal-card-cart d-flex justify-content-between align-items-center border-bottom py-2"><span>{`Subtotal (${cartState.length} item/s)`}</span> <span>₹&nbsp;{cartState?.length  === 0 ? '0.00':finalTotal}</span></div>
                                     <div className='py-2'>
                                         <p className='mb-0 text-success text-center'>You will save total ₹{totalDiscount} on order</p>
                                     </div>

@@ -1,23 +1,26 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaTruckFast, FaGift, FaHeadphonesSimple, FaCreditCard } from "react-icons/fa6";
 import { BiSolidOffer } from "react-icons/bi";
 import Marquee from "react-fast-marquee";
 import CategoryCard from '../components/CategoryCard';
-import ProductCard from '../components/ProductCard';
 import MetaTags from '../components/MetaTags';
 import BreadCrums from '../components/BreadCrumbs';
 import FeatureProduct from '../components/FeatureProduct';
 import { useDispatch, useSelector } from 'react-redux';
-import { getProducts } from '../features/product/productSlice';
+import { getSpecificProduct } from '../features/product/productSlice';
 import SpecialProducts from '../components/SpecialProducts';
+import { ToastContainer } from 'react-toastify';
+import { FaRegArrowAltCircleRight } from "react-icons/fa";
 const img1 = require('../images/img1.jpg');
 const img2 = require('../images/img2.jpg');
 const img3 = require('../images/img3.jpg');
-const camera = require('../images/camera.jpeg');
+const img4 = require('../images/img4.jpeg');
+const img5 = require('../images/img5.jpeg');
+const headphone = require('../images/headphonec.jpeg')
+const mobile = require('../images/mobile.jpg');
 const tv = require('../images/tv.jpeg');
 const watch = require('../images/watch.png');
 const laptop = require('../images/laptop.jpg');
-const gameremote = require('../images/gameremote.jpg');
 const samsung = require('../images/samsung.jpg');
 const apple = require('../images/apple.png');
 const dell = require('../images/dell.jpg');
@@ -25,57 +28,87 @@ const hp = require('../images/hp.jpeg');
 const asus = require('../images/asus.jpg');
 const oneplus = require('../images/oneplus.jpg');
 const { Link } = require('react-router-dom');
-
 const Home = () => {
   const dispatch = useDispatch();
-  const productState = useSelector(state => state.product.products);
-  const featuredProduct = [];
-  if (productState) {
-    for (let i = 0; i < productState.length && featuredProduct.length < 4; i++) {
-      if (productState[i].tags && productState[i].tags.includes('featured')){        
-        featuredProduct.push(productState[i]);
+  const specialProducts = useSelector(state => state.product.specialProducts);
+  const featuredProducts = useSelector(state => state.product.featuredProducts);
+  const cartlist = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : null;
+
+  const [specialProduct, setSpecialProduct] = useState([])
+  const [featuredProduct, setFeaturedProduct] = useState([])
+
+  useEffect(() => {    
+    let featuredProduct = [];
+    if (featuredProducts) {
+      const list = featuredProducts;
+      for (let i = 0; i < list.length; i++) {        
+        const product = JSON.parse(JSON.stringify(list[i]));
+        featuredProduct.push(product);
       }
+      setFeaturedProduct(featuredProduct);
     }
-  }
-  const specialProduct = [];
-  if (productState) {
-    for (let i = 0; i < productState.length && specialProduct.length < 2; i++) {
-      if (productState[i].tags && productState[i].tags.includes('special')){       
-        specialProduct.push(productState[i]);
-      }
-    }
-  }
+    //eslint-disable-next-line
+  }, [featuredProducts]);
+
 
   useEffect(() => {
-    dispatch(getProducts());
-  }, [dispatch]);
+    let specialProduct = [];
+    if (specialProducts) {
+      const list = specialProducts;      
+      for (let i = 0; i < list.length; i++) {
+        const product = JSON.parse(JSON.stringify(list[i]));
+        if (cartlist) {
+          product.selQunt = 1;
+          product.isAdded = false;
+          product.selcolor = product?.color[0]?._id;
+          for (let i = 0; i < cartlist.length; i++) {
+            if (cartlist[i]._id === product._id) {
+              product.selQunt = cartlist[i].quantity;
+              product.isAdded = true;
+              product.selcolor = cartlist[i].color;
+              break;
+            }
+          }
+        }
+        specialProduct.push(product);
+      }
+      setSpecialProduct(specialProduct);
+    }
+    //eslint-disable-next-line
+  }, [specialProducts]);
+
+  useEffect(() => {
+    dispatch(getSpecificProduct({ tag: 'special', limit: 2 }));
+    dispatch(getSpecificProduct({ tag: 'featured', limit: 4 }));
+  },[dispatch]);
+
   return (
     <>
       <MetaTags title="Home | Modern Mart" />
       <BreadCrums page="Home" />
+      <ToastContainer/>
       <section className="home-wrapper-1 py-3">
         <div className="container-xxl">
           <div className="banner-container row d-flex justify-content-between p-0">
             <div className="large-banner-container col-6 rounded-3 p-0">
               <div className="main-banner p-3 position-relative">
                 <img src={img1} alt="banner" className='image-fluid rounded-3' height={400} width={600} />
-                <div className="main-banner-content position-absolute">
+                <div className="main-banner-content position-absolute text-white">
                   <h5>SUPERCHARGED BY PROS.</h5>
-                  <h2>lPad P53 Pro Max</h2>
-                  <h5>FROM ₹999 to ₹41.63/mo</h5>
-                  <h5>For 24 mon</h5>
-                  <div><Link className='button-inverse'>Buy Now</Link></div>
+                  <h2>Macbook Pro Max</h2>
+                  <h5>FROM ₹99999</h5>
+                  <div style={{width:"fit-content"}}><Link to={"/our-store/66237603092605028b263329"} className='button-inverse d-flex align-items-center gap-8'><span>Go</span> <FaRegArrowAltCircleRight /></Link></div>
                 </div>
               </div>
             </div>
             <div className="small-banner-container col-6 d-flex justify-content-evenly align-items-center">
               <div className="small-banner position-relative">
                 <img src={img2} alt="banner" className='image-fluid rounded-3' height={180} width={280} />
-                <div className="small-banner-content position-absolute">
+                <div className="small-banner-content position-absolute text-danger">
                   <h6>BEST SALE</h6>
                   <h4>lPad P53 Pro Max</h4>
-                  <h6>FROM ₹999 to ₹41.63/mo</h6>
-                  <h6>For 24 mon</h6>
+                  <h6>FROM ₹1599 </h6>
+                  <div style={{width:"fit-content"}}><Link to={"/our-store?cat=66237603092605028b263329"} className='button-inverse d-flex align-items-center gap-1' style={{ fontSize: "10px", padding:"8px 10px"}}><span>Go</span> <FaRegArrowAltCircleRight /></Link></div>
                 </div>
               </div>
               <div className="small-banner position-relative">
@@ -83,26 +116,26 @@ const Home = () => {
                 <div className="small-banner-content position-absolute">
                   <h6>NEW ARRIVAL</h6>
                   <h4>lPad P53 Pro Max</h4>
-                  <h6>FROM ₹999 to ₹41.63/mo</h6>
-                  <h6>For 24 mon</h6>
+                  <h6>FROM ₹26999 </h6>
+                  <div style={{width:"fit-content"}}><Link to={"/our-store?cat=65a01ff7b5279694e20d5fc7"} className='button-inverse d-flex align-items-center gap-1' style={{ fontSize: "10px", padding:"8px 10px"}}><span>Go</span> <FaRegArrowAltCircleRight /></Link></div>
                 </div>
               </div>
               <div className="small-banner position-relative">
-                <img src={img2} alt="banner" className='image-fluid rounded-3' height={180} width={280} />
-                <div className="small-banner-content position-absolute">
-                  <h6>15% OFF</h6>
-                  <h4>lPad P53 Pro Max</h4>
-                  <h6>FROM ₹999 to ₹41.63/mo</h6>
-                  <h6>For 24 mon</h6>
+                <img src={img4} alt="banner" className='image-fluid rounded-3' height={180} width={280} />
+                <div className="small-banner-content position-absolute text-white">
+                  <h6 className='text-info'>15% OFF</h6>
+                  <h4>Samsung QLED 52'</h4>
+                  <h6>FROM ₹56999</h6>
+                  <div style={{width:"fit-content"}}><Link to={"/our-store?cat=6609e3881538edaad06d2fd7"} className='button-inverse d-flex align-items-center gap-1' style={{ fontSize: "10px", padding:"8px 10px"}}><span>Go</span> <FaRegArrowAltCircleRight /></Link></div>
                 </div>
               </div>
               <div className="small-banner position-relative">
-                <img src={img3} alt="banner" className='image-fluid rounded-3' height={180} width={280} />
-                <div className="small-banner-content position-absolute">
-                  <h6>FREE ENGRAVING</h6>
-                  <h4>lPad P53 Pro Max</h4>
-                  <h6>FROM ₹999 to ₹41.63/mo</h6>
-                  <h6>For 24 mon</h6>
+                <img src={img5} alt="banner" className='image-fluid rounded-3' height={180} width={280} />
+                <div className="small-banner-content position-absolute text-warning">
+                  <h6 className='text-dark'>FREE ENGRAVING</h6>
+                  <h4>Noise Series 6</h4>
+                  <h6>FROM ₹3799</h6>
+                  <div style={{width:"fit-content"}}><Link to={"/our-store?cat=65f6e7a648a9a13da628e68d"} className='button-inverse d-flex align-items-center gap-1' style={{ fontSize: "10px", padding:"8px 10px"}}><span>Go</span> <FaRegArrowAltCircleRight /></Link></div>
                 </div>
               </div>
             </div>
@@ -154,18 +187,18 @@ const Home = () => {
           <div className="row">
             <div className="col-12">
               <div className="categories d-flex flex-wrap justify-content-around align-items-center py-2">
-                <CategoryCard title="Laptops" desc="10 Items" img={laptop} height={100} width={150} />
-                <CategoryCard title="Cameras" desc="10 Items" img={camera} height={70} width={100} />
-                <CategoryCard title="Smart TVs" desc="10 Items" img={tv} height={80} width={130} />
-                <CategoryCard title="Smart Watches" desc="10 Items" img={watch} height={80} width={80} />
-                <CategoryCard title="Gaming" desc="10 Items" img={gameremote} height={60} width={110} />
+                <CategoryCard title="Laptop" _id="662374b0092605028b263318" desc="10 Items" img={laptop} height={90} width={130} />
+                <CategoryCard title="Mobile" _id="65a01ff7b5279694e20d5fc7" desc="10 Items" img={mobile} height={70} width={76} />
+                <CategoryCard title="TV" _id="6609e3881538edaad06d2fd7" desc="10 Items" img={tv} height={80} width={130} />
+                <CategoryCard title="Smart Watch" _id="65f6e7a648a9a13da628e68d" desc="10 Items" img={watch} height={80} width={80} />
+                <CategoryCard title="HeadPhone" _id="65f6e7bb48a9a13da628e68f" desc="10 Items" img={headphone} height={90} width={90} />
               </div>
             </div>
           </div>
         </div>
       </section>
       {featuredProduct && <section className="home-wrapper-5 py-3">
-        <div className="container-xxl">
+        <div className="container-xxl flex-column align-items-center">
           <div className="row"><h4 className='fw-bold'>Featured Collection</h4></div>
           <div className="row">
             <div className="feature-card-container pb-3 col-12 d-flex align-items-center overflow-x-scroll">
@@ -175,7 +208,7 @@ const Home = () => {
         </div>
       </section>}
       {specialProduct && <section className="home-wrapper-5 py-3">
-        <div className="container-xxl">
+        <div className="container-xxl flex-column align-items-center">
           <div className="row"><h4 className='fw-bold'>Special Products</h4></div>
           <div className="row">
             <div className="special-card-container pb-3 col-12 d-flex align-items-center overflow-x-scroll">
@@ -184,12 +217,12 @@ const Home = () => {
           </div>
         </div>
       </section>}
-      <section className="home-wrapper-4 py-3">
-        <div className="container-xxl">
+      <section className="home-wrapper-4 pt-3">
+        <div className="container-xxl px-0">
           <div className="row">
-            <div className="col-12">
-              <h4 className='fw-bold'>Brands Available On Our Shop</h4>
-              <div className="marque-inner-wrapper card-wrapper p-3 bg-white">
+            <div className="col-12 px-0">
+              <h4 className='fw-bold text-center'>Brands Available On Our Shop</h4>
+              <div className="marque-inner-wrapper card-wrapper py-3 bg-white">
                 <Marquee className="d-flex align-items-center">
                   <div>
                     <img src={samsung} alt="samsung" height={120} width={280} />

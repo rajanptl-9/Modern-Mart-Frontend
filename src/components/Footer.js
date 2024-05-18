@@ -1,5 +1,4 @@
 import React from 'react';
-import { GrSend } from "react-icons/gr";
 import { Link } from 'react-router-dom';
 import { BsFacebook, BsLinkedin } from "react-icons/bs";
 import { AiFillTwitterCircle } from "react-icons/ai";
@@ -7,9 +6,17 @@ import { FaGithub, FaYoutube } from "react-icons/fa6";
 import cards from "../images/cards.svg"
 
 const Footer = () => {
+  
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth" // Smooth scrolling behavior
+    });
+  };
+
   return (
     <>
-      <footer className='py-4'>
+      {/* <footer className='py-4'>
         <div className='py-2'>
           <div className="container-xxl">
             <div className="row">
@@ -26,7 +33,7 @@ const Footer = () => {
             </div>
           </div>
         </div>
-      </footer>
+      </footer> */}
       <footer className='py-4'>
         <div className='container-xxl'>
           <div className="link-container-footer row d-flex flex-wrap justify-content-between">
@@ -49,30 +56,30 @@ const Footer = () => {
             <div className="link-menu-footer">
               <h4>Information</h4>
               <div className="footer-links d-flex flex-column">
-                <Link to={"/privacy-policy"} className='text-white py-2 mb-1'>Privacy Policy</Link>
-                <Link to={"/refund-policy"} className='text-white py-2 mb-1'>Refund Policy</Link>
-                <Link to={"/shopping-policy"} className='text-white py-2 mb-1'>Shopping Policy</Link>
-                <Link to={"/terms-and-conditions"} className='text-white py-2 mb-1'>Terms & Services</Link>
+                <Link to={"/privacy-policy"} onClick={() => scrollToTop()} className='text-white py-2 mb-1'>Privacy Policy</Link>
+                <Link to={"/refund-policy"} onClick={() => scrollToTop()} className='text-white py-2 mb-1'>Refund Policy</Link>
+                <Link to={"/shopping-policy"} onClick={() => scrollToTop()} className='text-white py-2 mb-1'>Shopping Policy</Link>
+                <Link to={"/terms-and-conditions"} onClick={() => scrollToTop()} className='text-white py-2 mb-1'>Terms & Services</Link>
                 {/* <Link className='text-white py-2 mb-1'>Blogs</Link> */}
               </div>
             </div>
             <div className="link-menu-footer">
               <h4>Account</h4>
               <div className="footer-links d-flex flex-column">
-                <Link className='text-white py-2 mb-1'>Search</Link>
-                <Link className='text-white py-2 mb-1'>About Us</Link>
-                <Link className='text-white py-2 mb-1'>Faq</Link>
-                <Link className='text-white py-2 mb-1'>Contact</Link>
-                <Link className='text-white py-2 mb-1'>Size Chart</Link>
+                <Link className='text-white py-2 mb-1' onClick={() => scrollToTop()}>Search</Link>
+                <Link className='text-white py-2 mb-1' onClick={() => scrollToTop()} to={"/about"}>About Us</Link>
+                {/* <Link className='text-white py-2 mb-1'>Faq</Link> */}
+                <Link className='text-white py-2 mb-1' onClick={() => scrollToTop()} to={"/contact"}>Contact</Link>
+                {/* <Link className='text-white py-2 mb-1'>Size Chart</Link> */}
               </div>
             </div>
             <div className="link-menu-footer">
               <h4>Quick Links</h4>
               <div className="footer-links d-flex flex-column">
-                <Link className='text-white py-2 mb-1'>Laptops</Link>
-                <Link className='text-white py-2 mb-1'>Headphones</Link>
-                <Link className='text-white py-2 mb-1'>Tablets</Link>
-                <Link className='text-white py-2 mb-1'>Watches</Link>
+                <Link className='text-white py-2 mb-1' to={"/our-store?cat=662374b0092605028b263318"}>Laptops</Link>
+                <Link className='text-white py-2 mb-1' to={"/our-store?cat=65f6e7bb48a9a13da628e68f"}>Headphones</Link>
+                <Link className='text-white py-2 mb-1' to={"/our-store?cat=65f6e7ae48a9a13da628e68e"}>Tablets</Link>
+                <Link className='text-white py-2 mb-1' to={"/our-store?cat=65f6e7a648a9a13da628e68d"}>Watches</Link>
               </div>
             </div>
           </div>

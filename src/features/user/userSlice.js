@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk, createAction } from "@reduxjs/toolkit";
 import userServices from "./userServices";
+import { toastError, toastSuccess } from "../../utils/toastify";
 
 const initialState = {
     user: null,
@@ -31,7 +32,7 @@ export const loginUser = createAsyncThunk("user/login-user", async (user, thunkA
         if (response) {
             localStorage.setItem('token', response.token);
             localStorage.setItem('user', JSON.stringify(response));
-            localStorage.setItem('wishlist', JSON.stringify(response.wishlist));
+            localStorage.setItem('wishlist', response.wishlist ? JSON.stringify(response.wishlist) : []);
         }
         return response;
     } catch (error) {
@@ -57,6 +58,15 @@ export  const resetPassword = createAsyncThunk("user/reset-password", async (dat
     }
 });
 
+export const updateProfile = createAsyncThunk("user/update-profile", async (data, thunkAPI) => {
+    try {
+        const response = await userServices.updateProfile(data);
+        return response;
+    } catch (error) {
+        return thunkAPI.rejectWithValue(error);
+    }
+});
+
 
 const userSlice = createSlice({
     name: "user",
@@ -73,6 +83,7 @@ const userSlice = createSlice({
                 state.user = action.payload;
                 state.isError = false;
                 state.message = "User registered successfully!";
+                toastSuccess("User registered successfully!");
             })
             .addCase(registerUser.rejected, (state, action) => {
                 state.isLoading = false;
@@ -80,6 +91,7 @@ const userSlice = createSlice({
                 state.isSuccess = false;
                 state.user = null;
                 state.message = action.error;
+                toastError("Failed to register user!");
             })
             .addCase(loginUser.pending, (state) => {
                 state.isLoading = true;
@@ -90,6 +102,7 @@ const userSlice = createSlice({
                 state.user = action.payload;
                 state.isError = false;
                 state.message = "User logged in successfully!";
+                toastSuccess("User logged in successfully!");
             })
             .addCase(loginUser.rejected, (state, action) => {
                 state.isLoading = false;
@@ -97,6 +110,7 @@ const userSlice = createSlice({
                 state.isSuccess = false;
                 state.user = null;
                 state.message = action.error;
+                toastError("Failed to login user!");
             })
             .addCase(forgotPassword.pending, (state) => {
                 state.isLoading = true;
@@ -131,6 +145,28 @@ const userSlice = createSlice({
                 state.isSuccess = false;
                 state.resetPassword = null;
                 state.message = action.error;
+            })
+            .addCase(updateProfile.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(updateProfile.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.isSuccess = true;
+                state.user = action.payload;
+                state.isError = false;
+                state.message = "Profile Updated!";
+                toastSuccess("Profile Updated!");
+                console.log(action.payload);
+                let currUser = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null;
+                let newUser = {...currUser, ...action.payload};
+                localStorage.setItem('user', JSON.stringify(newUser));
+            })
+            .addCase(updateProfile.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.isSuccess = false;
+                state.message = action.error;
+                toastError("Failed to Update Profile!");                
             })
             .addCase(resetState, () => initialState)
     }

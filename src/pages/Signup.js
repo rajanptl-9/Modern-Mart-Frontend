@@ -5,9 +5,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import { VscEye, VscEyeClosed } from "react-icons/vsc";
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { registerUser, resetState } from '../features/user/userSlice';
-import { Bounce, ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const Signup = () => {
@@ -47,8 +47,6 @@ const Signup = () => {
         setSeeConfirmPassword(!seeConfirmPassword);
     }
 
-    
-    const authState = useSelector(state => state.user);
     const user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null;
 
     useEffect(() => {
@@ -56,52 +54,11 @@ const Signup = () => {
             dispatch(resetState());
         }else {
             setTimeout(() => {
-                navigate(-1);
+                navigate("/");
             }, 1000);
         }
         //eslint-disable-next-line
     }, [user]);
-
-    useEffect(() => {
-        if (authState.isSuccess && !authState.isError) {
-            toast.success('✓ Registration Success!', {
-                position: "top-center",
-                autoClose: 1000,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "colored",
-                transition: Bounce,
-                onClick: () => {
-                    dispatch(resetState());
-                    navigate(-1);
-                }
-            });
-            setTimeout(() => {
-                navigate(-1);
-            }, 1000);
-        } else if (authState.isError && !authState.isSuccess) {
-            toast.error('✗ Registration Failed!', {
-                position: "top-center",
-                autoClose: 1000,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "colored",
-                transition: Bounce,
-                onClick: () => {
-                    dispatch(resetState());
-                    navigate("/login");
-                }
-            });
-            dispatch(resetState());
-        }
-        //eslint-disable-next-line
-    }, [authState.isError, authState.isSuccess, authState.isLoading]);
 
     return (
         <>

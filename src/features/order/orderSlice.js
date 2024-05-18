@@ -1,5 +1,6 @@
 import { createAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import orderServices from "./orderServices";
+import { toastError, toastSuccess } from "../../utils/toastify";
 
 const initialState = {
     placedOrder: null,
@@ -44,6 +45,7 @@ const orderSlice = createSlice({
                 state.isError = false;                
                 state.placedOrder = action.payload.saveOrder;
                 state.message = action.payload.success; 
+                toastSuccess("Order Confirmed!");
             })
             .addCase(createOrder.rejected, (state, action) => {
                 state.isLoading = false;
@@ -51,6 +53,7 @@ const orderSlice = createSlice({
                 state.isSuccess = false;
                 state.placedOrder = null;
                 state.message = false;
+                toastError("Failed to Confirm Order!");
             })
             .addCase(getMyOrders.pending, (state) => {
                 state.isLoading = true;

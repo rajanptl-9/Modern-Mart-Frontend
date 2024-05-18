@@ -22,11 +22,18 @@ const updateCart = async (prodData) => {
     return response;
 }
 
+const clearCart = async () => {
+    const response = await axios.delete(`${base_url}user/clear-cart`, config);
+    return response;
+
+}
+
 const cartServices = {
     addToCart,
     getCart,
     removeProduct,
     updateCart,
+    clearCart,  
 };
 
 export default cartServices;

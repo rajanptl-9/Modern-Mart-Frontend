@@ -5,9 +5,9 @@ import { Link } from 'react-router-dom';
 import { VscEye, VscEyeClosed } from "react-icons/vsc";
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { loginUser, resetState } from '../features/user/userSlice';
-import { Bounce, ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
@@ -17,7 +17,6 @@ const Login = () => {
         password: yup.string().required().min(8, 'Password must be at least 8 characters').max(20, "Password must be at most 20 characters"),
     });
 
-    const authState = useSelector(state => state.user);
     const user = localStorage.getItem('user');
 
     const formik = useFormik({
@@ -42,56 +41,16 @@ const Login = () => {
         }else {
             setTimeout(() => {                
                 if(user) window.location.replace("/");
-            }, 2000);
+            }, 1500);
         }
         //eslint-disable-next-line
     }, [user]);   
-    
-    useEffect(() => {
-        if (authState.isSuccess && !authState.isError) {
-            toast.success('✓ Login Success!', {
-                position: "top-center",
-                autoClose: 1000,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "colored",
-                transition: Bounce,
-                // onClick: () => {
-                //     dispatch(resetState());
-                //     if(user) navigate(-1);
-                // }
-            });
-            // setTimeout(() => {
-            //     if(user) navigate(-1);
-            // }, 1000);
-        } else if (authState.isError && !authState.isSuccess) {
-            toast.error('✗ Login Failed!', {
-                position: "top-center",
-                autoClose: 1000,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "colored",
-                transition: Bounce,
-                // onClick: () => {
-                //     dispatch(resetState());
-                //     navigate("/login");
-                // }
-            });
-            // dispatch(resetState());
-        }
-        //eslint-disable-next-line
-    }, [authState.isError, authState.isSuccess, authState.isLoading]);
-
+        
     return (
         <>
             <MetaTags title="Log In | Modern Mart" />
             <BreadCrums page="Log In" />
+            <ToastContainer />
             <section className="auth-wrapper py-5">
                 <div className="container-xxl py-5">
                     <div className="rowpy-5">
@@ -119,7 +78,6 @@ const Login = () => {
                         </div>
                     </div>
                 </div>
-                <ToastContainer />
             </section>
         </>
     )

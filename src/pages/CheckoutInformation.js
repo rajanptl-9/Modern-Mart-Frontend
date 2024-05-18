@@ -2,7 +2,7 @@ import { React, useEffect, useState } from 'react';
 import { IoMdArrowRoundBack, IoMdArrowRoundForward } from "react-icons/io";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
-import { getCart } from '../features/cart/cartSlice';
+import { clearCart, getCart } from '../features/cart/cartSlice';
 import { ToastContainer, toast, Bounce } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { config } from '../utils/config';
@@ -183,33 +183,12 @@ const CheckoutInformation = () => {
 
   useEffect(() => {
     if (placedOrder) {
-      if (message) {
-        toast.success('✓ Order Placed Successfully!', {
-          position: "top-center",
-          autoClose: 1000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-          transition: Bounce,
-        });
+      if (message) {        
         setPages("order");
-      } else if (!message) {
-        toast.error('✗ Order Failed!', {
-          position: "top-center",
-          autoClose: 1000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-          transition: Bounce,
-        });
+        dispatch(clearCart());
       }
     }
+    //eslint-disable-next-line
   }, [placedOrder, message]);
 
   useEffect(() => {

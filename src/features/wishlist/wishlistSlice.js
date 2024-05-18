@@ -1,6 +1,6 @@
 import { createAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import wishlistServices from "./wishlistServices";
-import RM_LS_User from "../../utils/RM_LS_User";
+import { toastError, toastInfo, toastSuccess } from "../../utils/toastify";
 
 const initialState = {
     wishlist: null,
@@ -49,6 +49,11 @@ const wishlistSlice = createSlice({
                 state.isError = false;  
                 state.wishlist = action.payload.wishlist;
                 state.message = action.payload.message; 
+                if(action.payload.message === "Product Removed From Wishlist!"){
+                    toastInfo(action.payload.message);
+                }else if (action.payload.message === "Product Added To Wishlist!"){
+                    toastSuccess(action.payload.message);
+                }
             })
             .addCase(addToWishlist.rejected, (state, action) => {    
                 state.isLoading = false;
@@ -56,6 +61,12 @@ const wishlistSlice = createSlice({
                 state.isSuccess = false;
                 state.wishlist = null;
                 state.message = action.payload.message;
+                // if(logout(action.payload.message)){
+                //     toastError(action.payload.message);
+                // }
+                if(action.payload.message === "Failed to add in Wishlist!"){
+                    toastError(action.payload.message);
+                }
             })
             .addCase(getUserWishlist.pending, (state) => {
                 state.isLoading = true;            

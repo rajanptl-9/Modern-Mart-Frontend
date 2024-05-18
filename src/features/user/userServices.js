@@ -1,5 +1,6 @@
 import axios from "axios";
 import { base_url } from "../../utils/base_url";
+import { config } from "../../utils/config";
 
 const registerUser = async (user) => {
     const response = await axios.post(`${base_url}user/register`, user);
@@ -21,11 +22,17 @@ const resetPassword = async (data) => {
     return response.data;
 }
 
+const updateProfile = async (data) => {
+    const response = await axios.put(`${base_url}user/update-profile`, data, config);
+    return response.data;
+}
+
 const userServices = {
     registerUser,
     loginUser,
     forgotPassword,
     resetPassword,
+    updateProfile,
 }
 
 export default userServices;

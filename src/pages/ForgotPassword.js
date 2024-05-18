@@ -6,6 +6,7 @@ import * as yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast, Bounce, ToastContainer } from 'react-toastify';
 import { forgotPassword } from '../features/user/userSlice';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ForgotPassword = () => {
     const dispatch = useDispatch();

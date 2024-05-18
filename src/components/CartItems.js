@@ -5,11 +5,12 @@ import { toast, Bounce } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { updateCart, deleteProduct } from '../features/cart/cartSlice';
 import { RiEdit2Fill } from "react-icons/ri";
+import default_image from '../images/default_prodcut.jpeg'
 
 
 const CartItems = (props) => {
     const dispatch = useDispatch();
-    const cartState = useSelector(state => state.cart.cartlist);
+    const cartState = localStorage.getItem('cart')? JSON.parse(localStorage.getItem('cart')) : null;
     const { item, index } = props;
     const [editQuantity, setEditQuantity] = useState(false);
     const [quantity, setQuantity] = useState(item.quantity);
@@ -66,14 +67,15 @@ const CartItems = (props) => {
         }
         // eslint-disable-next-line
     },[updatedProduct]);
-
+    
     return (
         <>
             <div key={index} className='border-bottom'>
                 <div className='d-flex justify-content-between'>
                     <div className='d-flex'>
-                        <div className='d-flex align-items-center px-2'><input type="checkbox" name="" id="" /></div>
-                        <div className='d-flex align-items-center px-2'><img src={item?.productId?.images[0]?.url} alt="" /></div>
+                        {/* <div className='d-flex align-items-center px-2'><input type="checkbox" name="" id="" /></div> */}
+                        {item?.productId?.images ? <div className='d-flex align-items-center px-2'><img src={item?.productId?.images[0]?.url} alt="" /></div> :
+                        <img src={default_image} alt="product" className='img-fluid' />}
                         <div className='d-flex flex-column justify-content-between py-4'>
                             <div>
                                 <Link to={window.location.href.split('/').slice(0, 3).join('/') + "/our-store/" + cartState[index]?.productId?._id} className='mb-1 product-name-cart'>{item?.productId?.title}</Link>

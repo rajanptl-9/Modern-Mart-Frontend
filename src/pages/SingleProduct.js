@@ -14,25 +14,27 @@ import { FaShippingFast } from "react-icons/fa";
 import { FaLink } from "react-icons/fa6";
 import { MdEventAvailable } from "react-icons/md";
 import { useDispatch, useSelector } from 'react-redux';
-import { getOneProduct, getProducts } from '../features/product/productSlice';
+import { getOneProduct, getProducts, submitReview } from '../features/product/productSlice';
 import { addToCart, getCart } from '../features/cart/cartSlice';
 import { addToWishlist } from '../features/wishlist/wishlistSlice';
 import { ToastContainer, toast, Bounce } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { resetState } from '../features/wishlist/wishlistSlice';
+
+var options = { year: 'numeric', month: 'long' };
 
 const SingleProduct = () => {
     const dispatch = useDispatch();
     const getProductId = window.location.pathname.split("/")[2];
     const productState = useSelector(state => state.product.singleProduct);
     const sellPrice = productState ? productState.price - productState.price * 0.28 : 0.0;
-    const wishlist = localStorage.getItem('wishlist') ? JSON.parse(localStorage.getItem('wishlist')) : [];
-    const { message, isSuccess, isError } = useSelector(state => state.wishlist);    
-    const cartState = useSelector(state => state.cart);
+    const wishlist = localStorage.getItem('wishlist') !== undefined ? JSON.parse(localStorage.getItem('wishlist')) : [];
+    const { message } = useSelector(state => state.wishlist);
+    const cartState = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : null;
+    const {cartlist, isError, isSuccess} = useSelector(state => state.cart);
+    const reviewState = useSelector(state => state.product);
 
     const [listImages, setListImages] = useState([]);
     const [showWriteReview, setShowWriteReview] = useState(false);
-    const [rating, setRating] = useState(0);
     const [viewImage, setViewImage] = useState("https://t3.ftcdn.net/jpg/05/52/37/18/360_F_552371867_LkVmqMEChRhMMHDQ2drOS8cwhAWehgVc.jpg");
     const [imgWidth, setImgWidth] = useState(500);
     const props = { width: imgWidth, aspectRatio: "1", zoomWidth: 586, img: viewImage, offset: { vertical: 75, horizontal: 40 } };
@@ -41,19 +43,25 @@ const SingleProduct = () => {
     const [quantity, setQuantity] = useState(1);
     const [isAdded, setIsAdded] = useState(false);
 
+    const [formName, setFormName] = useState('');
+    const [formEmail, setFormEmail] = useState('');
+    const [formRating, setFormRating] = useState(0);
+    const [formTitle, setFormTitle] = useState('');
+    const [formComments, setFormComments] = useState('');
+    const [reviews, setReviews] = useState([]);
+    
     const handleWriteReview = () => {
         setShowWriteReview(!showWriteReview);
     }
-    const changeRating = (newRating) => {
-        setRating(newRating);
-    };
     const handleViewImage = (link) => {
         setViewImage(link);
     }
     const isInWishlist = (productId) => {
-        for (let i = 0; i < wishlist.length; i++) {
-            if (wishlist[i]._id === productId) {
-                return true;
+        if(wishlist){
+            for (let i = 0; i < wishlist.length; i++) {
+                if (wishlist[i]._id === productId) {
+                    return true;
+                }
             }
         }
         return false;
@@ -104,7 +112,7 @@ const SingleProduct = () => {
     const handleChangeQuantity = (e) => {
         setQuantity(parseInt(e.target.value));
     }
-    const  addItemToCart = async()=>{
+    const addItemToCart = async () => {
         const prodData = {
             productId: productState._id,
             quantity,
@@ -113,23 +121,49 @@ const SingleProduct = () => {
         }
         dispatch(addToCart(prodData));
     }
+    const handleReviewSubmit = () => {
+        if (!formName) {
+            toast.error("Name is required!");
+            return;
+        } else if (!formEmail) {
+            toast.error("Email is required!");
+            return;
+        } else if (!formTitle) {
+            toast.error("Title is required!");
+            return;
+        } else if (!formComments) {
+            toast.error("Comments are required!");
+            return;
+        }
+        const reviewData = {
+            name: formName,
+            email: formEmail,
+            star: formRating,
+            title: formTitle,
+            comments: formComments,
+            prodId: productState._id,
+        };
+        dispatch(submitReview(reviewData));
+    }
 
     useEffect(() => {
         dispatch(getProducts());
         dispatch(getOneProduct(getProductId));
-        dispatch(getCart())
+        dispatch(getCart());
         // eslint-disable-next-line
     }, [dispatch, getProductId]);
-    
+
     useEffect(() => {
         window.addEventListener('resize', handleResize);
         handleResize();
     }, [])
     useEffect(() => {
-        if (productState) isInWishlist(productState._id) ? setLiked(2) : setLiked(0);
+        if(wishlist){
+            if (productState) isInWishlist(productState._id) ? setLiked(2) : setLiked(0);
+        }
         //eslint-disable-next-line
     }, [wishlist]);
-    useEffect(() => { 
+    useEffect(() => {
         if (productState) {
             setViewImage(productState.images && productState.images.length > 0 ? productState.images[0].url : "https://t3.ftcdn.net/jpg/05/52/37/18/360_F_552371867_LkVmqMEChRhMMHDQ2drOS8cwhAWehgVc.jpg");
             let imgList = [];
@@ -137,10 +171,17 @@ const SingleProduct = () => {
                 imgList.push(productState.images[i]);
             }
             setListImages(imgList);
-            setSelectedColor(productState.color[0]._id);
-            
-        }        
-    }, [productState]);    
+            setSelectedColor(productState.color[0]._id);            
+            if (reviewState?.singleProduct?.rating?.length > 0) {
+                let rating = [];
+                for (let i = 0; i < reviewState?.singleProduct?.rating?.length; i++) {
+                    rating.push(reviewState?.singleProduct?.rating[i]);
+                }
+                setReviews(rating);
+            }
+        }
+        // eslint-disable-next-line
+    }, [productState]);
 
     const allProduct = useSelector(state => state.product.products);
     const popularProducts = [];
@@ -163,83 +204,35 @@ const SingleProduct = () => {
     }
 
     useEffect(() => {
-        if (message && isSuccess && !isError && (message === "Product Removed From Wishlist!" || message === "Product Added To Wishlist!")) {
-            toast.info("✓ " + message, {
-                position: "top-center",
-                autoClose: 2000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "colored",
-                transition: Bounce,
-            });
-            dispatch(resetState());
-        } else if (message && !isSuccess && isError) {
-            toast.info('✗ Failed to add in Wishlist!', {
-                position: "top-center",
-                autoClose: 2000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "colored",
-                transition: Bounce,
-            });
-        }
-        // eslint-disable-next-line
-    }, [message]);  
-    
-    useEffect(() => {
-        if (cartState && cartState.cartlist) {
-            for (let i = 0; i < cartState.cartlist.length; i++) {
-                if (cartState.cartlist[i].productId._id === getProductId) {
-                    setQuantity(cartState.cartlist[i].quantity);
+        if (cartState) {
+            for (let i = 0; i < cartState.length; i++) {
+                if (cartState[i].productId._id === getProductId) {
+                    setQuantity(cartState[i].quantity);
                     setIsAdded(true);
                 }
             }
         }
         //eslint-disable-next-line
-    },[cartState]);
+    }, [cartlist,isSuccess,isError]);
 
     useEffect(() => {
-        if(cartState.message === "Added to cart successfully!"){
-            if (cartState.isSuccess && !cartState.isError) {
-                toast.success("✓ Added to cart Successfully!", {
-                    position: "top-center",
-                    autoClose: 2000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "colored",
-                    transition: Bounce,
-                });
-                dispatch(getCart());
-            } else if (!cartState.isSuccess && cartState.isError) {
-                toast.error('✗ Failed to add in cart!', {
-                    position: "top-center",
-                    autoClose: 2000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "colored",
-                    transition: Bounce,
-                });
+        if(!reviewState.isLoading){
+            if (reviewState.isSuccess && !reviewState.isError) {
+                setFormName('');
+                setFormEmail('');
+                setFormRating(0);
+                setFormTitle('');
+                setFormComments('');
+                setShowWriteReview(false);
             }
         }
         // eslint-disable-next-line
-    }, [cartState.cart]); 
-    
+    }, [reviewState.isSuccess,reviewState.isError,reviewState.isLoading,reviewState.message])
     return (
         <>
-            <MetaTags title="Product Name | Modern Mart" />
+            <MetaTags title={`${productState ? productState.title : "Product Name"} | Modern Mart`} />
             <BreadCrums page="Product Name" />
+            <ToastContainer />
             {productState ? <section className="single-product-wrapper home-wrapper-2 py-3">
                 <div className="container-xxl">
                     <div className="row">
@@ -278,7 +271,7 @@ const SingleProduct = () => {
                                             />
                                         </div>
                                         <span className='d-flex align-items-center'>
-                                            <div className='ms-2'><span className="badge bg-secondary"> {parseInt(productState.totalRating).toFixed(1)} / 5.0</span></div>
+                                            <div className='ms-2'><span className="badge bg-secondary"> {parseFloat(productState.totalRating).toFixed(1)} / 5.0</span></div>
                                         </span>
                                     </div>
                                     <p className="fw-normal text-success mb-2">Extra ₹{(productState.price - sellPrice).toFixed(2)} off</p>
@@ -291,12 +284,12 @@ const SingleProduct = () => {
                                     {productState.color && <div className='color-pallete d-flex justify-content-between align-items-center flex-wrap mb-3'>
                                         <h5 className='mb-0 fw-normal'>Color</h5>
                                         {productState.color.map((color, index) => {
-                                            return <div key={index} id={color._id} className='color-circle' style={{ backgroundColor: color.title, border: color.title === 'White' ? "1px solid black" : `1px solid ${color.title}` , boxShadow: selectedColor === color._id ? `0px 0px 0 5px #febd69` : "none"}} onClick={(e) => setSelectedColor(e.target.id)} ></div>
+                                            return <div key={index} id={color._id} className='color-circle' style={{ backgroundColor: color.title, border: color.title === 'White' ? "1px solid black" : `1px solid ${color.title}`, boxShadow: selectedColor === color._id ? `0px 0px 0 5px #febd69` : "none" }} onClick={(e) => setSelectedColor(e.target.id)} ></div>
                                         })
                                         }
                                     </div>}
                                     <div className='d-flex flex-column align-items-start gap-8 mb-3'>
-                                        <div className='mb-3'>Quantity &nbsp; &nbsp; {isAdded ? quantity : <input type="number" name="quantity" id="" className='w-6 ps-2' min={1} max={productState.quantity} value={quantity} onChange={handleChangeQuantity}/>}</div>
+                                        <div className='mb-3'>Quantity: &nbsp; &nbsp; {isAdded && quantity } {!isAdded && <input type="number" name="quantity" id="" className='w-6 ps-2' min={1} max={productState.quantity} value={quantity} onChange={handleChangeQuantity} />}</div>
                                         <div className="shop-buttons-product d-flex gap-20 mb-3">
                                             {isAdded && <Link to={"/cart"} className="button btn-block" >Go to Cart</Link>}
                                             {!isAdded && <button className="button btn-block" onClick={addItemToCart}>Add to Cart</button>}
@@ -332,111 +325,101 @@ const SingleProduct = () => {
                                                 </tr>}
                                             </tbody>
                                         </table>
-                                        <div className="reviews d-flex flex-column bg-white pt-4 px-4 pb-2 rounded-3 mb-2">
-                                            <div className="overall-user-review d-flex flex-column align-items-start justify-content-between pb-4 mb-3 border-bottom">
-                                                <h6 className="mb-2">Customer Ratings & Reviews</h6>
-                                                <div className="show-overall-review col-12 d-flex">
-                                                    <div className='star-rating d-flex align-items-center'>
-                                                        <StarRatings
-                                                            rating={4.6}
-                                                            starRatedColor="orange"
-                                                            numberOfStars={5}
-                                                            name='product-rating'
-                                                            starDimension="18px"
-                                                            starSpacing="-5px"
-                                                        /> <p className='mb-0 mt-1'>&nbsp;&nbsp;Based on {2} Review/s.</p>
-                                                    </div>
-                                                    <div>
-                                                        <button className="button write-review-button" onClick={handleWriteReview}>
-                                                            <MdOutlineRateReview />  Write a review
-                                                        </button>
-                                                    </div>
-                                                    <div className={`${showWriteReview ? "write-review-product" : "d-none"}`} >
-                                                        <div className="review-container d-flex flex-column justify-content-start px-3 py-2 text-white">
-                                                            <div className='text-end'><IoClose className='text-white fs-2 close-write-review' onClick={handleWriteReview} /></div>
-                                                            <h4 className='text-center'>Write a Review</h4>
-                                                            <form action="">
+                                        {productState.rating &&
+                                            <div className="w-100 reviews d-flex flex-column bg-white pt-4 px-4 pb-2 rounded-3 mb-2">
+                                                <div className="overall-user-review d-flex flex-column align-items-start justify-content-between pb-4 mb-3 border-bottom">
+                                                    <h6 className="mb-2">Product Ratings & Reviews</h6>
+                                                    <div className="show-overall-review col-12 d-flex">
+                                                        <div className='star-rating d-flex align-items-center'>
+                                                            <StarRatings
+                                                                rating={parseFloat(productState.totalRating)}
+                                                                starRatedColor="orange"
+                                                                numberOfStars={5}
+                                                                name='product-rating'
+                                                                starDimension="18px"
+                                                                starSpacing="-5px"
+                                                            /> <p className='mb-0 mt-1'>&nbsp;&nbsp;Based on {productState.rating.length} Review/s.</p>
+                                                        </div>
+                                                        <div>
+                                                            <button className="button write-review-button" onClick={handleWriteReview}>
+                                                                <MdOutlineRateReview />  Write a review
+                                                            </button>
+                                                        </div>
+                                                        {showWriteReview && <div className={`${showWriteReview ? "write-review-product" : "d-none"}`} >
+                                                            <div className="review-container d-flex flex-column justify-content-start px-3 py-2 text-white">
+                                                                <div className='text-end'><IoClose className='text-white fs-2 close-write-review' onClick={handleWriteReview} /></div>
+                                                                <h4 className='text-center'>Write a Review</h4>
                                                                 <div className="mb-3">
                                                                     <label htmlFor="user-name-review" className="form-label">Name</label>
-                                                                    <input type="text" className="form-control" id="user-name-review" placeholder="Enter Your Name" />
+                                                                    <input type="text" className="form-control" id="user-name-review" placeholder="Enter Your Name"
+                                                                        value={formName}
+                                                                        onChange={e => setFormName(e.target.value)} />
                                                                 </div>
                                                                 <div className="mb-3">
                                                                     <label htmlFor="user-email-review" className="form-label">E-mail</label>
-                                                                    <input type="email" className="form-control" id="user-email-review" placeholder="Enter Your E-mail" />
+                                                                    <input type="email" className="form-control" id="user-email-review" placeholder="Enter Your E-mail"
+                                                                        value={formEmail}
+                                                                        onChange={e => setFormEmail(e.target.value)} />
                                                                 </div>
                                                                 <div className="mb-3">
                                                                     <label className="form-label">Rate</label><br />
                                                                     <StarRatings
-                                                                        rating={rating}
+                                                                        rating={formRating}
                                                                         starRatedColor="orange"
-                                                                        changeRating={changeRating}
                                                                         numberOfStars={5}
                                                                         starDimension="30px"
                                                                         starSpacing="5px"
                                                                         zIndex="8"
+                                                                        changeRating={e => { setFormRating(e) }}
                                                                     />
                                                                 </div>
                                                                 <div className="mb-3">
                                                                     <label htmlFor="review-title-review" className="form-label">Review Title</label>
-                                                                    <input type="text" className="form-control" id="review-title-review" placeholder="Give Your Review A Title" />
+                                                                    <input type="text" className="form-control" id="review-title-review" placeholder="Give Your Review A Title"
+                                                                        value={formTitle}
+                                                                        onChange={e => setFormTitle(e.target.value)} />
                                                                 </div>
                                                                 <div className="mb-3">
                                                                     <label htmlFor="user-comments-review" className="form-label">Comments</label>
-                                                                    <textarea className="form-control" id="user-comments-review" rows="6" placeholder='Leave Your Comments...'></textarea>
+                                                                    <textarea className="form-control" id="user-comments-review" rows="3" placeholder='Leave Your Comments...'
+                                                                        value={formComments}
+                                                                        onChange={e => setFormComments(e.target.value)}></textarea>
                                                                 </div>
                                                                 <div className="d-flex justify-content-center">
-                                                                    <button type="submit" className="btn btn-light">Submit Review</button>
+                                                                    <button onClick={() => handleReviewSubmit()} className="btn btn-light" >Submit Review</button>
                                                                 </div>
-                                                            </form>
+                                                            </div>
+                                                        </div>}
+                                                    </div>
+                                                </div>
+                                                {reviews.map((item) => (
+                                                    <div className="user-review d-flex flex-column align-items-start justify-content-between border-bottom py-2 mb-3">
+                                                        <p className="mb-0"><i><b>{item?.name}</b></i> on <i><b>{new Date(item?.createdAt).toLocaleDateString("en-US", options)}</b></i></p>
+                                                        <div className="col-12 d-flex justify-content-between">
+                                                            <div className='star-rating d-flex align-items-center'>
+                                                                <StarRatings
+                                                                    rating={item?.star}
+                                                                    starRatedColor="orange"
+                                                                    // changeRating={}
+                                                                    numberOfStars={5}
+                                                                    name='product-rating'
+                                                                    starDimension="18px"
+                                                                    starSpacing="-5px"
+                                                                /> <p className='mb-0 mt-1'>&nbsp;&nbsp;<b>- {item?.title}</b></p>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="user-review d-flex flex-column align-items-start justify-content-between border-bottom py-2 mb-3">
-                                                <p className="mb-0"><i><b>{"user_name"}</b></i> on <i><b>{Date.now()}</b></i></p>
-                                                <div className="col-12 d-flex justify-content-between">
-                                                    <div className='star-rating d-flex align-items-center'>
-                                                        <StarRatings
-                                                            rating={4.6}
-                                                            starRatedColor="orange"
-                                                            // changeRating={}
-                                                            numberOfStars={5}
-                                                            name='product-rating'
-                                                            starDimension="18px"
-                                                            starSpacing="-5px"
-                                                        /> <p className='mb-0 mt-1'>&nbsp;&nbsp;<b>- {"review_title"}</b></p>
-                                                    </div>
-                                                </div>
-                                                <p className='fw-normal mt-2 mb-0'>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Praesentium, repellat vel iusto voluptates maxime totam reprehenderit et, laborum itaque atque blanditiis reiciendis. Cumque illum minima repellat accusantium, porro cupiditate natus!</p>
-                                                <div className="response-review home-wrapper-2 p-3 mt-2">
+                                                        <p className='fw-normal mt-2 mb-0'>{item?.comments}</p>
+                                                        {/* <div className="response-review home-wrapper-2 p-3 mt-2">
                                                     <h6><b>{"Response-title"}</b> - {"user_name"}</h6>
                                                     <p className="mb-1">Thank you for the review! Hope this journey may continue!</p>
-                                                </div>
-                                                <div className="d-flex col-12 justify-content-end px-1">
-                                                    <Link to="/" className='text-dark'><u>Report as inapproproate</u></Link>
-                                                </div>
-                                            </div>
-                                            <div className="user-review d-flex flex-column align-items-start justify-content-between">
-                                                <p className="mb-0"><i><b>{"user_name"}</b></i> on <i><b>{Date.now()}</b></i></p>
-                                                <div className="col-12 d-flex justify-content-between">
-                                                    <div className='star-rating d-flex align-items-center'>
-                                                        <StarRatings
-                                                            rating={4.6}
-                                                            starRatedColor="orange"
-                                                            // changeRating={}
-                                                            numberOfStars={5}
-                                                            name='product-rating'
-                                                            starDimension="18px"
-                                                            starSpacing="-5px"
-                                                        /> <p className='mb-0 mt-1'>&nbsp;&nbsp;<b>- {"review_title"}</b></p>
+                                                </div> */}
+                                                        <div className="d-flex col-12 justify-content-end px-1">
+                                                            <Link to="/" className='text-dark'><u>Report as inapproproate</u></Link>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <p className='fw-normal mt-2'>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Praesentium, repellat vel iusto voluptates maxime totam reprehenderit et, laborum itaque atque blanditiis reiciendis. Cumque illum minima repellat accusantium, porro cupiditate natus!</p>
-                                                <div className="d-flex col-12 justify-content-end px-1">
-                                                    <Link to="/" className='text-dark'><u>Report as inapproproate</u></Link>
-                                                </div>
-                                            </div>
-                                        </div>
+                                                ))}
+                                                {reviews.length === 0 && <span>Be the first to review this product. Click on 'Write a review' Button.</span>}
+                                            </div>}
                                     </div>
                                     <div className="other-details-product py-2">
                                         <h6 className="mb-1">Payments </h6>
@@ -484,7 +467,6 @@ const SingleProduct = () => {
                     </div>
                 </div>
             </section> */}
-            <ToastContainer />
         </>
     )
 }

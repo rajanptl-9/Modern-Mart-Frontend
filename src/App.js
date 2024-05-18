@@ -21,13 +21,15 @@ import Cart from './pages/Cart';
 import CheckoutInformation from './pages/CheckoutInformation';
 import CheckoutLayout from './components/CheckoutLayout';
 import Orders from './pages/Orders';
+import Profile from './pages/Profile';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<Layout />}>
-          <Route index element={<Home />} />
+          <Route index element={<Home />}/>
+          <Route path="/my-profile" element={<Profile />} />
           <Route path='about' element={<About />} />
           <Route path='our-store' element={<OurStore />} />
           <Route path='our-store/:id' element={<SingleProduct />} />

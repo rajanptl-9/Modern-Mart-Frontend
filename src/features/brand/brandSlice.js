@@ -1,50 +1,50 @@
 import { createAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import colorServices from "./colorServices";
+import brandServices from "./brandServices";
 
 const initialState = {
-    colors: null,
+    brands: null,
     isSuccess: false,
     isError: false,
     isLoading: false,
     message: "",
 };
 
-export const getColors = createAsyncThunk("color/get-colors", async (thunkAPI) => {
+export const getBrands = createAsyncThunk("brand/get-brands", async (thunkAPI) => {
     try {
-        const response = await colorServices.getColors();
+        const response = await brandServices.getBrands();
         return response.data;
     } catch (error) {
         return thunkAPI.rejectWithValue(error);
     }
 });
 
-const colorSlice = createSlice({
-    name: "colors",
+const brandSlice = createSlice({
+    name: "brands",
     initialState,
     reducers: {},
     extraReducers: builder => {
         builder
-            .addCase(getColors.pending, (state) => {
+            .addCase(getBrands.pending, (state) => {
                 state.isLoading = true;
             })
-            .addCase(getColors.fulfilled, (state, action) => {
+            .addCase(getBrands.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.isSuccess = true;
                 state.isError = false;
-                state.colors = action.payload;
-                state.message = "Colors fetched successfully"; 
+                state.brands = action.payload;
+                state.message = "Brand fetched successfully"; 
             })
-            .addCase(getColors.rejected, (state, action) => {
+            .addCase(getBrands.rejected, (state, action) => {
                 state.isLoading = false;
                 state.isError = true;
                 state.isSuccess = false;
-                state.colors = null;
+                state.brands = null;
                 state.message = action.payload.message;
             })
             .addCase(resetState, () => initialState)
     }
 });
 
-export const resetState = createAction("Color_reset_all");
+export const resetState = createAction("Brand_reset_all");
 
-export default colorSlice.reducer;
+export default brandSlice.reducer;
