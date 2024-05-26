@@ -1,1 +1,1 @@
-export const base_url = "https://modern-mart-server.onrender.com/";
+export const base_url = "https://modern-mart-server.onrender.com/api/";
