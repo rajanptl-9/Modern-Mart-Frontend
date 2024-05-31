@@ -266,12 +266,6 @@ footer:not(:first-child){
   font-size: 46px;
 }
 
-.categories{
-  /* background-color: white;
-  box-shadow: 0 0 10px #edeeec; */
-  gap: 1rem;
-  
-}
 .category{
   width: 19%;
   min-width: 180px;

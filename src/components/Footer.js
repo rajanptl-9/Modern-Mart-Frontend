@@ -94,7 +94,7 @@ const Footer = () => {
                   <p className='mb-0'>&copy; {new Date().getFullYear()}; Powered By Modern Mart</p>
                 </div>
                 <div className="card-images-footer d-flex d-inline">
-                  <img src={cards} alt="cards" />
+                  <img src={cards} alt="cards" height={40} width={400}/>
                 </div>
               </div>
             </div>

@@ -27,6 +27,9 @@ const dell = require('../images/dell.jpg');
 const hp = require('../images/hp.jpeg');
 const asus = require('../images/asus.jpg');
 const oneplus = require('../images/oneplus.jpg');
+const fasttrack = require('../images/fastrack.jpeg');
+const nothing = require('../images/nothing.png');
+const redmi = require('../images/redmi.jpeg');
 const { Link } = require('react-router-dom');
 const Home = () => {
   const dispatch = useDispatch();
@@ -187,11 +190,11 @@ const Home = () => {
           <div className="row">
             <div className="col-12">
               <div className="categories d-flex flex-wrap justify-content-around align-items-center py-2">
-                <CategoryCard title="Laptop" _id="662374b0092605028b263318" desc="10 Items" img={laptop} height={90} width={130} />
-                <CategoryCard title="Mobile" _id="65a01ff7b5279694e20d5fc7" desc="10 Items" img={mobile} height={70} width={76} />
-                <CategoryCard title="TV" _id="6609e3881538edaad06d2fd7" desc="10 Items" img={tv} height={80} width={130} />
-                <CategoryCard title="Smart Watch" _id="65f6e7a648a9a13da628e68d" desc="10 Items" img={watch} height={80} width={80} />
-                <CategoryCard title="HeadPhone" _id="65f6e7bb48a9a13da628e68f" desc="10 Items" img={headphone} height={90} width={90} />
+                <CategoryCard title="Laptop" _id="662374b0092605028b263318" desc="1 Item/s" img={laptop} height={90} width={130} />
+                <CategoryCard title="Mobile" _id="65a01ff7b5279694e20d5fc7" desc="1 Item/s" img={mobile} height={70} width={76} />
+                <CategoryCard title="TV" _id="6609e3881538edaad06d2fd7" desc="1 Item/s" img={tv} height={80} width={130} />
+                <CategoryCard title="Smart Watch" _id="65f6e7a648a9a13da628e68d" desc="1 Item/s" img={watch} height={80} width={80} />
+                <CategoryCard title="HeadPhone" _id="65f6e7bb48a9a13da628e68f" desc="1 Item/s" img={headphone} height={90} width={90} />
               </div>
             </div>
           </div>
@@ -218,8 +221,8 @@ const Home = () => {
         </div>
       </section>}
       <section className="home-wrapper-4 pt-3">
-        <div className="container-xxl px-0">
-          <div className="row">
+        <div className="container-fluid px-0 mx-0">
+          <div className="row w-100 mx-0">
             <div className="col-12 px-0">
               <h4 className='fw-bold text-center'>Brands Available On Our Shop</h4>
               <div className="marque-inner-wrapper card-wrapper py-3 bg-white">
@@ -241,6 +244,15 @@ const Home = () => {
                   </div>
                   <div>
                     <img src={oneplus} alt="oneplus" height={180} width={250} />
+                  </div>
+                  <div>
+                    <img src={fasttrack} alt="fasttrack" height={120} width={250} />
+                  </div>
+                  <div>
+                    <img src={nothing} alt="nothing" height={130} width={260} />
+                  </div>
+                  <div className='mx-3'>
+                    <img src={redmi} alt="redmi" height={70} width={160} />
                   </div>
                 </Marquee>
               </div>
