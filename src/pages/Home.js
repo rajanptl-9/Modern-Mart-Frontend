@@ -190,11 +190,11 @@ const Home = () => {
           <div className="row">
             <div className="col-12">
               <div className="categories d-flex flex-wrap justify-content-around align-items-center py-2">
-                <CategoryCard title="Laptop" _id="662374b0092605028b263318" desc="1 Item/s" img={laptop} height={90} width={130} />
-                <CategoryCard title="Mobile" _id="65a01ff7b5279694e20d5fc7" desc="1 Item/s" img={mobile} height={70} width={76} />
-                <CategoryCard title="TV" _id="6609e3881538edaad06d2fd7" desc="1 Item/s" img={tv} height={80} width={130} />
-                <CategoryCard title="Smart Watch" _id="65f6e7a648a9a13da628e68d" desc="1 Item/s" img={watch} height={80} width={80} />
-                <CategoryCard title="HeadPhone" _id="65f6e7bb48a9a13da628e68f" desc="1 Item/s" img={headphone} height={90} width={90} />
+                <CategoryCard title="Laptop" _id="66537c35c0d48aaad379c0ad" desc="1 Item/s" img={laptop} height={90} width={130} />
+                <CategoryCard title="Mobile" _id="66537c04c0d48aaad379c09b" desc="1 Item/s" img={mobile} height={70} width={76} />
+                <CategoryCard title="TV" _id="66537bdec0d48aaad379c098" desc="1 Item/s" img={tv} height={80} width={130} />
+                <CategoryCard title="Smart Watch" _id="66537c0cc0d48aaad379c09e" desc="1 Item/s" img={watch} height={80} width={80} />
+                <CategoryCard title="HeadPhone" _id="66537c1dc0d48aaad379c0a4" desc="1 Item/s" img={headphone} height={90} width={90} />
               </div>
             </div>
           </div>

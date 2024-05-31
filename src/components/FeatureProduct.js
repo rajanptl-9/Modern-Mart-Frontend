@@ -18,7 +18,7 @@ const FeatureProduct = (props) => {
                     </div>
                 </div>
                 <div className="featured-image-container">
-                    {data?.images ? <img src={data?.images[0]?.url} key={data?.images[0]?.url} alt="product" className='' /> : <img src={default_image} alt="product" className='img-fluid' />}
+                    {data?.images ? <img src={data?.images[0]?.url} key={data?.images[0]?.url} alt="product" className='featured-image' /> : <img src={default_image} alt="product" className='img-fluid' />}
                 </div>
             </div>
         </Link>

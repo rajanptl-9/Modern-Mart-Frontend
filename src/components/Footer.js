@@ -76,10 +76,10 @@ const Footer = () => {
             <div className="link-menu-footer">
               <h4>Quick Links</h4>
               <div className="footer-links d-flex flex-column">
-                <Link className='text-white py-2 mb-1' to={"/our-store?cat=662374b0092605028b263318"}>Laptops</Link>
-                <Link className='text-white py-2 mb-1' to={"/our-store?cat=65f6e7bb48a9a13da628e68f"}>Headphones</Link>
-                <Link className='text-white py-2 mb-1' to={"/our-store?cat=65f6e7ae48a9a13da628e68e"}>Tablets</Link>
-                <Link className='text-white py-2 mb-1' to={"/our-store?cat=65f6e7a648a9a13da628e68d"}>Watches</Link>
+                <Link className='text-white py-2 mb-1' to={"/our-store?cat=66537c35c0d48aaad379c0ad"}>Laptops</Link>
+                <Link className='text-white py-2 mb-1' to={"/our-store?cat=66537c1dc0d48aaad379c0a4"}>Headphones</Link>
+                <Link className='text-white py-2 mb-1' to={"/our-store?cat=66537c12c0d48aaad379c0a1"}>Tablets</Link>
+                <Link className='text-white py-2 mb-1' to={"/our-store?cat=66537c0cc0d48aaad379c09e"}>Watches</Link>
               </div>
             </div>
           </div>
